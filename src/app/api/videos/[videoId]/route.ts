@@ -1,3 +1,4 @@
+"use server";
 import getCurrentChannel from "@/actions/getCurrentChannel";
 import prisma from "@/vendor/db";
 import { NextResponse } from "next/server";

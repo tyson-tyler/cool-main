@@ -1,3 +1,4 @@
+"use server";
 import getCurrentUser from "@/actions/getCurrentUser";
 import prisma from "@/vendor/db";
 import { NextResponse } from "next/server";
