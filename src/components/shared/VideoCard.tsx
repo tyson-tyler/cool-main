@@ -50,7 +50,9 @@ const VideoCard: React.FC<VideoCardProps> = ({
       <div className="flex gap-x-5 mt-4 flex-col">
         {channel && (
           <div className="flex gap-2 items-center">
-            <Avatar size={AvatarSize?.medium} imageSrc={channel?.imageSrc} />
+            <Link href={`/channel/${channel.id}`}>
+              <Avatar size={AvatarSize?.medium} imageSrc={channel?.imageSrc} />
+            </Link>
             <div className="flex flex-col">
               <h3 className="font-semibold text-lg">{truncatedTitle}</h3>
               <p className="text-gray-500 text-sm whitespace-nowrap">
