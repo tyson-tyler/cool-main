@@ -6,7 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Suspense, lazy } from "react";
 
 import { Vortex } from "./ui/votex";
-import BlogCard from "./blog/card";
+
+import CardList from "./blog/cardlist";
 
 // export const metadata: Metadata = {
 //   title: {
@@ -92,7 +93,7 @@ const About = async () => {
               </div>
             </section>
           </Vortex>
-          <BlogCard />
+          <CardList />
         </div>
       )}
     </Suspense>
