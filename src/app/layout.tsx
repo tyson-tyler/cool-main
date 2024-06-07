@@ -22,16 +22,23 @@ const inter = Inter({ subsets: ["latin"] });
 
 // Define metadata for SEO
 export const metadata: Metadata = {
+  metadataBase: new URL("https://myaimix.com/"),
   title: {
     default: "Myaimix",
-    template: "%s - MyAiMix",
+    template: "%s | MyAiMix",
   },
   description:
     "Best AI-generated video sharing platform for free, Discover the ultimate AI-powered video sharing platform for free!, Join the revolution with Myaimix - the best AI-generated video sharing community, xperience the future of video sharing with Myaimix - where AI meets creativity., Unlock endless possibilities with Myaimix - the top destination for AI-driven video content., Elevate your video sharing experience with Myaimix - the preferred choice for AI enthusiasts, Transform your content with Myaimix - the leading platform for AI-enhanced videos, Explore, engage, and collaborate on Myaimix - the go-to destination for cutting-edge video sharing., join the AI revolution with Myaimix - where innovation meets community, Discover the power of AI-generated videos on Myaimix - your gateway to creativity., Unleash your creativity with Myaimix - the premier AI-powered video sharing network. ",
   keywords:
     "AI video sharing platform, Social media video sharing, AI-driven video community, Intelligent video sharing platform, AI-powered social network for videos, AI-driven video discovery, Next-generation video sharing, Cutting-edge AI video platform, Smart video recommendations, Revolutionary video community, Seamless video exploration, Dynamic video engagement, Trendsetting video collaboration, Personalized video curation, Innovative content discovery, Interactive video networking, AI-enhanced video interaction, Immersive video experience, Engaging video storytelling, Futuristic video sharing, AI-powered content creation, Intelligent video interactions, Community-driven video ecosystem, AI-curated video channels, Empowering video creativity",
-  twitter: {
-    card: "summary_large_image",
+  openGraph: {
+    title: "Myaimix Best Ai Video sharing platform",
+    description:
+      "Best AI-generated video sharing platform for free, Discover the ultimate AI-powered video sharing platform for free!, Join the revolution with Myaimix - the best AI-generated video sharing community, xperience the future of video sharing with Myaimix - where AI meets creativity., Unlock endless possibilities with Myaimix - the top destination for AI-driven video content., Elevate your video sharing experience with Myaimix - the preferred choice for AI enthusiasts, Transform your content with Myaimix - the leading platform for AI-enhanced videos, Explore, engage, and collaborate on Myaimix - the go-to destination for cutting-edge video sharing., join the AI revolution with Myaimix - where innovation meets community, Discover the power of AI-generated videos on Myaimix - your gateway to creativity., Unleash your creativity with Myaimix - the premier AI-powered video sharing network.",
+    type: "website",
+    locale: "en_US",
+    url: "https://myaimix.com/",
+    siteName: "myaimix",
   },
 };
 
