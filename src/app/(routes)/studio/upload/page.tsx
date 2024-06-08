@@ -61,6 +61,7 @@ export default function UploadPage() {
         router.push("/");
       })
       .catch(() => toast.error("something went wrong"))
+      .then(router.refresh)
       .finally(() => setIsLoading(false));
   };
   const [isLoading, setIsLoading] = useState(false);
