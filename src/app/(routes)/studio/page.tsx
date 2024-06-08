@@ -31,8 +31,9 @@ const page = async () => {
         <div className="flex justify-center items-center mt-40">
           <Image
             src={`${currentChannel?.imageSrc}`}
-            fill
-            className="rounded-full w-52 h-52"
+            width={70}
+            height={70}
+            className="rounded-full"
             alt="hello "
           />
         </div>
