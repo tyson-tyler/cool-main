@@ -64,21 +64,31 @@ const VideoCard: React.FC<VideoCardProps> = ({
   }, []);
 
   return (
-    <Link
-      className="m-auto w-full block mt-13 mb-3"
-      href={`/video/${video.id}`}
-      prefetch={true}
-    >
-      <div className="relative w-full flex justify-center lg:justify-center lg:h-[550px] aspect-video">
-        <video
-          ref={videoRef}
-          src={video.videoSrc}
-          className="object-cover md:hover:scale-105 rounded-md w-full max-w-[40rem] h-[600px] sm:h-[600px] lg:h-auto duration-150 transition-all ease-in"
-          loop
-          onLoadedData={handleVideoLoaded}
-          key={video.id}
-        />
-      </div>
+    <>
+      <Link
+        className="m-auto w-full block mt-13 mb-3"
+        href={`/video/${video.id}`}
+        prefetch={true}
+      >
+        <div className="relative w-full flex justify-center lg:justify-center lg:h-[550px] aspect-video">
+          {!videoLoaded && (
+            <div className="absolute inset-0 flex items-center justify-center bg-gray-200 rounded-md">
+              <div className="loader">Loading...</div>
+              {/* You can replace this with any placeholder you prefer */}
+            </div>
+          )}
+          <video
+            ref={videoRef}
+            src={video.videoSrc}
+            className={`object-cover rounded-md w-full h-full transition-all ease-in duration-150 ${
+              videoLoaded ? "md:hover:scale-105" : ""
+            }`}
+            loop
+            onLoadedData={handleVideoLoaded}
+            key={video.id}
+          />
+        </div>
+      </Link>
       <div className="flex gap-x-5 mt-[-30px] mb-15 flex-col justify-center items-center z-50 mb-40">
         {channel ? (
           <div className="flex gap-2 items-center z-[2] dark:bg-neutral-800 bg-gray-100 text-black dark:text-white rounded-full p-2">
@@ -97,7 +107,7 @@ const VideoCard: React.FC<VideoCardProps> = ({
           </div>
         ) : null}
       </div>
-    </Link>
+    </>
   );
 };
 
