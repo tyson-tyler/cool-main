@@ -1,10 +1,10 @@
 import getTrendingVideos from "@/actions/NewCreator";
-import getChannelById from "@/actions/getChannelById";
-import getVideosByChannelId from "@/actions/getVideosByChannelId";
+
+import { Video } from "@prisma/client";
 import { MetadataRoute } from "next";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const video = await getTrendingVideos();
+  const videos: Video[] = await getTrendingVideos();
 
   return [
     {
@@ -24,7 +24,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: new Date(),
     },
     {
-      url: `${process.env.NEXT_PUBLIC_BASE_URL}/video/${video}`,
+      url: `${process.env.NEXT_PUBLIC_BASE_URL}/video/`,
       lastModified: new Date(),
     },
     {
