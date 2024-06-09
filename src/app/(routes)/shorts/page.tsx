@@ -17,7 +17,7 @@ const Home = () => {
   const [trendingVideos, setTrendingVideos] = useState<VideoWithChannel[]>([]);
   const [subscriptions, setSubscriptions] = useState<Channel[]>([]);
   const [offset, setOffset] = useState(0);
-  const limit = 1; // Adjust this limit based on your preference
+  const limit = 3; // Adjust this limit based on your preference
   const [loading, setLoading] = useState(true);
   const [hasMore, setHasMore] = useState(true);
   const observer = useRef<IntersectionObserver>();
