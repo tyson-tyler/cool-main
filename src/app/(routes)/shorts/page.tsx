@@ -5,7 +5,7 @@ import LeftBar from "@/components/Leftbar";
 import VideoCard from "@/components/videoTrue";
 import { Suspense } from "react";
 import { Channel, Video } from "@prisma/client";
-import { SkeletonCard } from "@/components/Sketon";
+import { SkeletonCard } from "@/components/skill";
 import { FilmIcon } from "lucide-react";
 import Bar from "@/components/Bar";
 
