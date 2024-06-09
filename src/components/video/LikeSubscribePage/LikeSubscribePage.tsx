@@ -22,6 +22,10 @@ const LikeSubscribePage: React.FC<LikeSubscribePageProps> = ({
   channel,
 }) => {
   const currentUser = useContext(CurrentUserContext);
+  const truncatedTitle =
+    channel?.name.length > 20
+      ? channel.name.slice(0, 20) + "..."
+      : channel.name;
 
   return (
     <>
@@ -32,7 +36,7 @@ const LikeSubscribePage: React.FC<LikeSubscribePageProps> = ({
           </Link>
           <div className="flex flex-col justify-between mr-2">
             <Link href={`/channel/${channel.id}`} prefetch={true}>
-              <h2 className="text-lg font-semibold">{channel.name}</h2>
+              <h2 className="text-lg font-semibold">{truncatedTitle}</h2>
             </Link>
             <p className="text-sm text-gray-500">
               {compactNumberFormat(channel.subscriberCount)} Followers
