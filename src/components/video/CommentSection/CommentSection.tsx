@@ -13,7 +13,7 @@ const CommentSection: React.FC<CommentSectionProps> = ({
   videoId,
 }) => {
   return (
-    <div className="flex flex-col gap-4 w-full mb-4 text-md mt-5">
+    <div className="flex flex-col gap-4 w-auto mb-4 text-md mt-5">
       <p>{comments.length} Comments</p>
       <CommentInput videoId={videoId} />
       <div className="flex flex-col gap-4 mt-4">
