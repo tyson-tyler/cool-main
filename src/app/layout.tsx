@@ -32,6 +32,8 @@ const keywords = [
   "Cutting-edge AI video platform",
   "Smart video recommendations",
   "Revolutionary video community",
+  "free ai video platform",
+  "ai generate my video",
   // Add more keywords as needed
 ];
 export const metadata: Metadata = {
