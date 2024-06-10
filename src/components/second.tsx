@@ -1,22 +1,12 @@
 "use client";
 import { CurrentUserContext } from "@/context/CurrentUserContext";
 import { Channel } from "@prisma/client";
-import {
-  Book,
-  Brush,
-  CirclePlus,
-  EyeIcon,
-  FilmIcon,
-  HomeIcon,
-  UsersRound,
-} from "lucide-react";
 
 import React, { useContext, useEffect } from "react";
 
 import Avatar, { AvatarSize } from "./Avatar";
 import MenuItems from "./Fe";
 
-import { MdAccountCircle, MdCreate, MdWifiChannel } from "react-icons/md";
 import { CreateChannelModalContext } from "@/context/CreateChannelModelContext";
 import { useRouter } from "next/navigation";
 import { CurrentChannelContext } from "@/context/CreateChannelContext";
@@ -51,7 +41,7 @@ const LeftBar: React.FC<SideBarProps> = ({ subscribedChannels }) => {
   }, [router]);
 
   return (
-    <div className="sticky top-1 h-screen sm:flex sm:flex-col sm:items-center lg:flex lg:items-start lg:mr-[28px] md:mr-[20px] max-md:hidden mt-10 lg:ml-[28px]">
+    <div className="sticky p-[10px] top-1 h-screen sm:flex sm:flex-col sm:items-center lg:flex lg:items-start lg:mr-[28px] md:mr-[20px] max-md:hidden mt-10 lg:ml-[28px]">
       <div
         onClick={() => {
           router.push(`/`);

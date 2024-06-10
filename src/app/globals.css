@@ -59,6 +59,19 @@ body {
   border-left-color: #09f;
   animation: spin 1s ease infinite;
 }
+.quality-selector {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.quality-selector label,
+.quality-selector select {
+  color: white;
+}
 
 @keyframes spin {
   0% {
