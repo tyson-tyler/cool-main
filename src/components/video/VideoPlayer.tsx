@@ -38,6 +38,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoSrc, userId }) => {
           className="lg:h-[600px] md:h-[500px] sm:h-[400px] h-[280px] w-full rounded-md"
           sourceTypes={["hls", "dash"]}
           transformation={{ streaming_profile: "hd" }}
+          aspectRatio="fill"
         />
       </div>
     </div>
