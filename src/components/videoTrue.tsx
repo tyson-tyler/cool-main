@@ -80,7 +80,7 @@ const VideoCard: React.FC<VideoCardProps> = ({
           <video
             ref={videoRef}
             src={video.videoSrc}
-            className={`object-cover md:hover:scale-105 aspect-square rounded-md w-full max-w-[40rem] h-[600px] sm:h-[600px] lg:h-auto duration-150 transition-all ease-in ${
+            className={`object-cover md:hover:scale-105 aspect-video rounded-md w-full max-w-[40rem] h-[600px] sm:h-[600px] lg:h-auto duration-150 transition-all ease-in ${
               videoLoaded ? "md:hover:scale-105" : ""
             }`}
             loop
