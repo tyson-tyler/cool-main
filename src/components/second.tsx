@@ -97,7 +97,7 @@ const LeftBar: React.FC<SideBarProps> = ({ subscribedChannels }) => {
         
       </div> : null} */}
       {currentUser ? (
-        <div className="flex items-center flex-col">
+        <div className="flex  flex-col">
           <div
             onClick={() => {
               if (!currentChannel) {
