@@ -36,7 +36,9 @@ const LikeSubscribePage: React.FC<LikeSubscribePageProps> = ({
           </Link>
           <div className="flex flex-col justify-between mr-2">
             <Link href={`/channel/${channel.id}`} prefetch={true}>
-              <h2 className="text-lg font-semibold">{truncatedTitle}</h2>
+              <h2 className="lg:text-lg text-sm sm:text-sm  font-semibold">
+                {truncatedTitle}
+              </h2>
             </Link>
             <p className="text-sm text-gray-500">
               {compactNumberFormat(channel.subscriberCount)} Followers
