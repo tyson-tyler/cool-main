@@ -16,6 +16,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoSrc, userId }) => {
           playback-id={videoSrc}
           src={videoSrc}
           autoPlay
+          streamType="on-demand"
           accentColor="#ea580c"
           metadata-video-title="Test VOD"
           metadata-viewer-user-id={userId}
