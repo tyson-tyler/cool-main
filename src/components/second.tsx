@@ -41,7 +41,7 @@ const LeftBar: React.FC<SideBarProps> = ({ subscribedChannels }) => {
   }, [router]);
 
   return (
-    <div className="sticky p-[10px] top-1 h-screen sm:flex sm:flex-col sm:items-center lg:flex lg:items-start lg:mr-[28px] md:mr-[20px] max-md:hidden mt-10 lg:ml-[28px]">
+    <div className="sticky p-[10px] top-1 h-screen sm:flex sm:flex-col sm:items-center lg:flex lg:items-start md:mr-[17px] max-md:hidden mt-10 lg:ml-[28px]">
       <div
         onClick={() => {
           router.push(`/`);
