@@ -26,7 +26,7 @@ export async function getRecommendedVideos(
           },
         },
 
-        { $limit: 10 },
+        { $limit: 100 },
         {
           $lookup: {
             from: "Channel",
