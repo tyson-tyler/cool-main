@@ -8,14 +8,11 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Video } from "@prisma/client";
-import { Facebook, Instagram, Share2, Twitch, Twitter } from "lucide-react";
-import { BiLogoDiscord } from "react-icons/bi";
-import { MdWhatsapp } from "react-icons/md";
-import { PiDiscordLogo, PiPinterestLogo } from "react-icons/pi";
+import { Share2 } from "lucide-react";
+
 import {
   FacebookIcon,
   FacebookShareButton,
-  InstapaperShareButton,
   LinkedinIcon,
   LinkedinShareButton,
   PinterestIcon,
@@ -39,7 +36,7 @@ const DialogDemo: React.FC<VideoCardProps> = ({ video }) => {
     <Dialog>
       <DialogTrigger asChild>
         <div className="dark:bg-neutral-800 rounded-full bg-gray-200 hover:bg-gray-900 hover:scale-105 transition px-3 py-2 dark:text-white text-black font-medium">
-          <Share2 className="w-6 h-6 mr-3" />
+          <Share2 className="w-6 h-6 mr-0 lg:mr-3" />
         </div>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
