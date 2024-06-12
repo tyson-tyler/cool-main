@@ -31,12 +31,6 @@ const items = [
     logo: <GiFilmSpool />,
     url: "/shorts",
   },
-
-  {
-    logo: <IoImage />,
-
-    url: "https://inter-main.vercel.app",
-  },
 ];
 
 const Footer = () => {

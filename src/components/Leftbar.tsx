@@ -82,19 +82,7 @@ const LeftBar: React.FC<SideBarProps> = ({ subscribedChannels }) => {
           Clip
         </div>
       </div>
-      <div
-        onClick={() => {
-          router.push(`https://inter-main.vercel.app/`);
-        }}
-        className="flex flex-row  cursor-pointer items-center gap-x-3 text-2xl opacity-80 hover:scale-105 transform transition gap-6"
-      >
-        <div className="flex items-center gap-x-3 text-2xl my-5 opacity-80 hover:opacity-100 gap-6">
-          <IoImage className="w-7 h-7" />
-        </div>
-        <div className="leading-none text-base flex gap-5 items-center p-4 rounded-md justify-start md:hidden lg:flex font-semibold transition-all">
-          Image
-        </div>
-      </div>
+
       <div
         onClick={() => {
           router.push(`/about`);
