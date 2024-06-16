@@ -17,10 +17,9 @@ import { GiFilmSpool } from "react-icons/gi";
 
 import { IoIosBookmarks } from "react-icons/io";
 import { RiAccountPinBoxFill } from "react-icons/ri";
-import { FaGrinHearts, FaPaintBrush } from "react-icons/fa";
+import { FaPaintBrush } from "react-icons/fa";
 import { BiSolidCloudUpload } from "react-icons/bi";
 import { IoImage } from "react-icons/io5";
-import { Heart } from "lucide-react";
 
 interface SideBarProps {
   subscribedChannels: Channel[];
@@ -121,23 +120,6 @@ const LeftBar: React.FC<SideBarProps> = ({ subscribedChannels }) => {
               Channel
             </div>
           </div>
-          <div
-            onClick={() => {
-              if (!currentChannel) {
-                createChannelModal?.onOpen();
-              } else {
-                router.push(`/like`);
-              }
-            }}
-            className="flex flex-row justify-center  lg:justify-normal  cursor-pointer items-center gap-x-3 text-2xl opacity-80 hover:scale-105 transform transition gap-6"
-          >
-            <div className="flex items-center gap-x-3 text-2xl my-5 opacity-80 hover:opacity-100 gap-6">
-              <FaGrinHearts className="w-7 h-7" />
-            </div>
-            <div className="leading-none text-base flex gap-5 items-center p-4 rounded-md justify-start md:hidden lg:flex font-semibold transition-all">
-              Like
-            </div>
-          </div>
           {/* <div
             onClick={() => {
               if (!currentChannel) {
@@ -172,7 +154,6 @@ const LeftBar: React.FC<SideBarProps> = ({ subscribedChannels }) => {
               Studio
             </div>
           </div>
-
           <div
             onClick={() => {
               if (!currentChannel) createChannelModal?.onOpen();
