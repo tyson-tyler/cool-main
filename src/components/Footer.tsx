@@ -1,6 +1,6 @@
 "use client";
 import React, { useContext, useEffect } from "react";
-import { Brush, CirclePlus, Eye, FilmIcon, Home } from "lucide-react";
+import { Brush, CirclePlus, Eye, FilmIcon, Heart, Home } from "lucide-react";
 import Link from "next/link";
 
 import { HiMiniUserGroup } from "react-icons/hi2";
@@ -15,7 +15,7 @@ import { GiFilmSpool } from "react-icons/gi";
 import { IoImage } from "react-icons/io5";
 import { RiAccountPinBoxFill } from "react-icons/ri";
 import { FaPaintBrush } from "react-icons/fa";
-import { IoIosBookmarks } from "react-icons/io";
+import { FaGrinHearts } from "react-icons/fa";
 
 const items = [
   {
@@ -86,6 +86,20 @@ const Footer = () => {
           >
             <div className="flex items-center gap-x-3 text-2xl my-5 opacity-80 hover:opacity-100 gap-6">
               <RiAccountPinBoxFill className="w-7 h-7" />
+            </div>
+          </div>
+          <div
+            onClick={() => {
+              if (!currentChannel) {
+                createChannelModal?.onOpen();
+              } else {
+                router.push(`/like`);
+              }
+            }}
+            className="flex flex-row justify-center  lg:justify-normal  cursor-pointer items-center gap-x-3 text-2xl opacity-80 hover:scale-105 transform transition gap-6"
+          >
+            <div className="flex items-center gap-x-3 text-2xl my-5 opacity-80 hover:opacity-100 gap-6">
+              <FaGrinHearts className="w-7 h-7" />
             </div>
           </div>
           <div

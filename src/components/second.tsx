@@ -17,7 +17,7 @@ import { GiFilmSpool } from "react-icons/gi";
 import { IoImage } from "react-icons/io5";
 import { IoIosBookmarks } from "react-icons/io";
 import { RiAccountPinBoxFill } from "react-icons/ri";
-import { FaPaintBrush } from "react-icons/fa";
+import { FaGrinHearts, FaPaintBrush } from "react-icons/fa";
 
 interface SideBarProps {
   subscribedChannels: Channel[];
@@ -101,6 +101,20 @@ const LeftBar: React.FC<SideBarProps> = ({ subscribedChannels }) => {
           >
             <div className="flex items-center gap-x-3 text-2xl my-5 opacity-80 hover:opacity-100 gap-6">
               <RiAccountPinBoxFill className="w-7 h-7" />
+            </div>
+          </div>
+          <div
+            onClick={() => {
+              if (!currentChannel) {
+                createChannelModal?.onOpen();
+              } else {
+                router.push(`/like`);
+              }
+            }}
+            className="flex flex-row justify-center  lg:justify-normal  cursor-pointer items-center gap-x-3 text-2xl opacity-80 hover:scale-105 transform transition gap-6"
+          >
+            <div className="flex items-center gap-x-3 text-2xl my-5 opacity-80 hover:opacity-100 gap-6">
+              <FaGrinHearts className="w-7 h-7" />
             </div>
           </div>
           {/* <div

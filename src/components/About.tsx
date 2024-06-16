@@ -93,7 +93,6 @@ const About = async () => {
               </div>
             </section>
           </Vortex>
-          <CardList />
         </div>
       )}
     </Suspense>

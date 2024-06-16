@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 import { Suspense, lazy } from "react";
 
