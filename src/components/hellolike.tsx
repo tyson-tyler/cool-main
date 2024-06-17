@@ -96,12 +96,14 @@ const Home = () => {
           {likedVideos.length > 0 && (
             <>
               {likedVideos.map((likedVideo, index) => (
-                <VideoCard
-                  key={likedVideo.id}
-                  video={likedVideo}
-                  channel={likedVideo.channel}
-                  channelAvatar={likedVideo.channel.imageSrc}
-                />
+                <div ref={lastVideoElementRef} key={likedVideo.id}>
+                  <VideoCard
+                    key={likedVideo.id}
+                    video={likedVideo}
+                    channel={likedVideo.channel}
+                    channelAvatar={likedVideo.channel.imageSrc}
+                  />
+                </div>
               ))}
             </>
           )}
