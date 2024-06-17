@@ -82,7 +82,10 @@ const Home = () => {
             ? trendingVideos.map((trendingVideo, index) => {
                 if (trendingVideos.length === index + 1) {
                   return (
-                    <div ref={lastVideoElementRef} key={trendingVideo.id}>
+                    <div
+                      ref={lastVideoElementRef}
+                      key={trendingVideo.channelId}
+                    >
                       <VideoCard
                         video={trendingVideo}
                         channel={trendingVideo.channel}
@@ -93,7 +96,7 @@ const Home = () => {
                 } else {
                   return (
                     <VideoCard
-                      key={trendingVideo.id}
+                      key={trendingVideo.channelId}
                       video={trendingVideo}
                       channel={trendingVideo.channel}
                       channelAvatar={trendingVideo.channel.imageSrc}
