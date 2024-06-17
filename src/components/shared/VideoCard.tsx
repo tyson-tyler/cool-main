@@ -50,7 +50,7 @@ const VideoCard: React.FC<VideoCardProps> = ({
       <div className="flex gap-x-5 mt-4 flex-col">
         {channel && (
           <div className="flex gap-2 items-center">
-            <Link href={`/channel/${channel.id}`}>
+            <Link href={`/channel/${channel.id}`} prefetch>
               <Avatar size={AvatarSize?.medium} imageSrc={channel?.imageSrc} />
             </Link>
             <div className="flex flex-col">
