@@ -53,8 +53,8 @@ const Footer = () => {
   };
 
   return (
-    <div className="fixed bottom-0 w-full bg-gray-200 shadow-md dark:bg-neutral-900 z-10 md:hidden">
-      <div className="flex justify-around p-4">
+    <div className="fixed bottom-0 w-full  bg-gray-200 shadow-md dark:bg-neutral-900 z-10 md:hidden">
+      <div className="flex justify-around max-w-[500px] m-auto p-4">
         {menuItems.map((item, index) => (
           <div
             key={index}
