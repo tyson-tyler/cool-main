@@ -1,28 +1,24 @@
 "use client";
 
 import { useEffect, useState, useRef, useCallback } from "react";
-import { useRouter } from "next/navigation";
 import LeftBar from "@/components/Leftbar";
 import VideoCard from "@/components/shared/VideoCard";
 import { Suspense } from "react";
 import { Channel, Video } from "@prisma/client";
 import { SkeletonCard } from "@/components/Sketon";
-import LoadingBar from "@/components/loading";
 
 interface VideoWithChannel extends Video {
   channel: Channel;
 }
 
-const Home: React.FC = () => {
+const Home = () => {
   const [trendingVideos, setTrendingVideos] = useState<VideoWithChannel[]>([]);
   const [subscriptions, setSubscriptions] = useState<Channel[]>([]);
   const [offset, setOffset] = useState(0);
   const limit = 2;
   const [loading, setLoading] = useState(true);
   const [hasMore, setHasMore] = useState(true);
-  const [isNavigating, setIsNavigating] = useState(false);
   const observer = useRef<IntersectionObserver>();
-  const router = useRouter();
 
   const fetchTrendingVideos = async (offset: number, limit: number) => {
     try {
@@ -41,7 +37,7 @@ const Home: React.FC = () => {
 
   const fetchSubscriptions = async () => {
     try {
-      const response = await fetch("/api/sub");
+      const response = await fetch("/api/sub"); // Adjust the endpoint if necessary
       const subs = await response.json();
       setSubscriptions(subs);
     } catch (error) {
@@ -51,14 +47,14 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetchTrendingVideos(0, limit);
+    fetchTrendingVideos(0, limit); // Initial fetch
     fetchSubscriptions();
   }, []);
 
   useEffect(() => {
     if (offset === 0) return;
     setLoading(true);
-    fetchTrendingVideos(offset, limit);
+    fetchTrendingVideos(offset, limit); // Fetch more videos when offset changes
   }, [offset]);
 
   const lastVideoElementRef = useCallback(
@@ -75,14 +71,8 @@ const Home: React.FC = () => {
     [loading, hasMore]
   );
 
-  const handleNavigation = (url: string) => {
-    setIsNavigating(true);
-    router.push(url);
-  };
-
   return (
     <div className="w-full relative mt-16 flex justify-center">
-      {isNavigating && <LoadingBar />}
       <div className="sm:hidden md:flex flex flex-between md:mr-4">
         <LeftBar subscribedChannels={subscriptions} />
       </div>
@@ -100,7 +90,6 @@ const Home: React.FC = () => {
                         video={trendingVideo}
                         channel={trendingVideo.channel}
                         channelAvatar={trendingVideo.channel.imageSrc}
-                        onNavigate={handleNavigation}
                       />
                     </div>
                   );
@@ -111,7 +100,6 @@ const Home: React.FC = () => {
                       video={trendingVideo}
                       channel={trendingVideo.channel}
                       channelAvatar={trendingVideo.channel.imageSrc}
-                      onNavigate={handleNavigation}
                     />
                   );
                 }

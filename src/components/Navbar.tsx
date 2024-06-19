@@ -3,7 +3,6 @@
 import Input from "./Input";
 import Logo from "./Logo";
 import UserOptions from "./UserOptions/UserOptions";
-import Sidebar from "./sidebar/Sidebar";
 
 export const Navbar = () => {
   return (

@@ -82,7 +82,7 @@ export default async function VideoPage({
               <Description video={video} />
             </h1>
 
-            <div className="w-full grid-container gap-4 pb-4">
+            {/* <div className="w-full grid-container gap-4 pb-4">
               {recommendedVideos
                 ? recommendedVideos.map((recommendedVideo) => {
                     return (
@@ -95,7 +95,7 @@ export default async function VideoPage({
                     );
                   })
                 : null}
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
