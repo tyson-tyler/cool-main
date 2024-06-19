@@ -39,6 +39,7 @@
     "next-cloudinary": "^6.5.0",
     "next-themes": "^0.3.0",
     "next-video": "^1.0.6",
+    "nextjs-toploader": "^1.6.12",
     "nodemailer": "^6.9.13",
     "query-string": "^9.0.0",
     "react": "^18",

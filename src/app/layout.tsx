@@ -16,6 +16,7 @@ import SidebarProvider from "@/context/SidebarContext";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Metadata } from "next";
+import NextjsTopLoader from "nextjs-toploader";
 
 // Define Inter font with Latin subset
 const inter = Inter({ subsets: ["latin"] });
@@ -85,6 +86,11 @@ export default async function RootLayout({
                 >
                   <SidebarProvider>
                     <Navbar />
+                    <NextjsTopLoader
+                      color="bg-gradient-to-r from-green-300 via-blue-500 to-purple-600"
+                      crawlSpeed={200}
+                      speed={200}
+                    />
                     {children}
                     <Footer />
                   </SidebarProvider>
