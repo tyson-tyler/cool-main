@@ -3,6 +3,7 @@ import getCommentsByVideoId from "@/actions/getCommentsByVideoId";
 import getCurrentSubscription from "@/actions/getCurrentSubscriptions";
 import { getRecommendedVideos } from "@/actions/getRecommendedVideos";
 import increaseVideoViewCount from "@/actions/increaseVideoViewCount";
+
 import { SheetDemo } from "@/components/he";
 
 import VideoCard from "@/components/shared/VideoCard";
@@ -54,48 +55,52 @@ export default async function VideoPage({
           <div className="sm:hidden absolute top-1 z-[50] md:flex flex flex-between md:mr-4 ml-4">
             <SheetDemo />
           </div>
+
           <VideoPlayer
             video={video}
             userId={channel.userId}
             videoSrc={video.videoSrc}
           />
+
           <div className="mx-2">
-            <LikeSubscribePage video={video} channel={channel} />
-            <div className="flex justify-center w-full mt-4">
-              <Dialog>
-                <DialogTrigger asChild>
-                  <Button
-                    variant="outline"
-                    className="md:ml-[60px] lg:ml-[60px]"
-                  >
-                    <BiComment className="w-5 h-5 mr-2" />
-                    Comment
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="sm:max-w-[425px]">
-                  <CommentSection comments={comments} videoId={video.id} />
-                </DialogContent>
-              </Dialog>
+            <div>
+              <LikeSubscribePage video={video} channel={channel} />
+              <div className="flex justify-center w-full mt-4">
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button
+                      variant="outline"
+                      className="md:ml-[60px] lg:ml-[60px]"
+                    >
+                      <BiComment className="w-5 h-5 mr-2" />
+                      Comment
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="sm:max-w-[425px]">
+                    <CommentSection comments={comments} videoId={video.id} />
+                  </DialogContent>
+                </Dialog>
+              </div>
             </div>
             <h1 className="text-2xl my-2 pb-2 font-semibold break-all dark:text-white text-black">
               {video.title}
               <Description video={video} />
             </h1>
+          </div>
 
-            <div className="w-full grid-container gap-4 pb-4">
-              {recommendedVideos
-                ? recommendedVideos.map((recommendedVideo) => {
-                    return (
-                      <VideoCard
-                        key={recommendedVideo.id}
-                        video={recommendedVideo}
-                        channel={recommendedVideo.channel}
-                        channelAvatar={channel.imageSrc}
-                      />
-                    );
-                  })
-                : null}
-            </div>
+          <div className="w-full grid-container gap-4 px-2 lg:px-7">
+            {recommendedVideos
+              ? recommendedVideos.map((recommendedVideo) => {
+                  return (
+                    <VideoCard
+                      key={recommendedVideo.id}
+                      video={recommendedVideo}
+                      channel={recommendedVideo.channel}
+                      channelAvatar={channel.imageSrc}
+                    />
+                  );
+                })
+              : null}
           </div>
         </div>
       </div>

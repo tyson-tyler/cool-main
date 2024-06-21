@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import LikeDisLikeButton from "../../LikeDisLikeButton";
 import DialogDemo from "@/components/Sharearea";
 import Report from "@/components/report";
+import Comment from "@/components/comments/Comment";
 // import Sharearea from "@/components/Sharearea";
 
 interface LikeSubscribePageProps {
@@ -59,6 +60,7 @@ const LikeSubscribePage: React.FC<LikeSubscribePageProps> = ({
       <div className="flex justify-evenly mt-5 items-center w-full">
         <LikeDisLikeButton video={video} />
         {/* <Sharearea /> */}
+
         <DialogDemo video={video} />
         <Report video={video} />
       </div>

@@ -17,7 +17,7 @@ const Description: React.FC<DescriptionProps> = ({ video }) => {
         isExpanded ? "h-fit" : "line-clamp-2 max-h-28"
       }`}
     >
-      <div className="flex gap-2 text-sm md:text-md lg:text-xl  dark:text-white text-black font-medium">
+      <div className="flex gap-2 text-sm md:text-md lg:text-lg font-bold  dark:text-white text-black">
         <p className="text-black dark:text-white">
           {compactNumberFormat(video.viewCount)} watch
         </p>
