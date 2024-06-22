@@ -10,6 +10,7 @@ import {
 } from "react";
 import { Channel, Video } from "@prisma/client";
 import { SkeletonCard } from "@/components/Sketon";
+import Loader from "@/components/Loader";
 
 // Lazy load components
 const LeftBar = lazy(() => import("@/components/Leftbar"));
@@ -80,7 +81,13 @@ const Home = () => {
   return (
     <div className="w-full relative mt-16 flex justify-center">
       <div className="sm:hidden md:flex flex flex-between md:mr-4">
-        <Suspense fallback={<div>Loading LeftBar...</div>}>
+        <Suspense
+          fallback={
+            <div>
+              <Loader />
+            </div>
+          }
+        >
           <LeftBar subscribedChannels={subscriptions} />
         </Suspense>
       </div>
