@@ -19,7 +19,7 @@ export default async function getChannelById(
     const channel = await prisma.channel.findFirst({
       where: query,
       orderBy: {
-        createdAt: "asc", // Order by createdAt in descending order
+        createdAt: "desc", // Order by createdAt in descending order
       },
     });
 
