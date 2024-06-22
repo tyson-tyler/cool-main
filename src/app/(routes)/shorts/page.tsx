@@ -10,7 +10,7 @@ import {
 } from "react";
 import { Channel, Video } from "@prisma/client";
 import { SkeletonCard } from "@/components/skill";
-import { FilmIcon } from "lucide-react";
+import { FilmIcon, Loader, Loader2 } from "lucide-react";
 
 // Lazy load components
 const LeftBar = lazy(() => import("@/components/Leftbar"));
@@ -95,7 +95,13 @@ const Home = () => {
             Ai Films
           </span>
         </div>
-        <Suspense fallback={<div>Loading videos...</div>}>
+        <Suspense
+          fallback={
+            <div>
+              <Loader className="w-5 h-5 animate-spin" />
+            </div>
+          }
+        >
           <div className="basis-[85%] mb-[100px] lg:mb-[0px] gap-x-10 gap-y-10 mt-5 justify-center">
             {trendingVideos.length > 0
               ? trendingVideos.map((trendingVideo, index) => {
