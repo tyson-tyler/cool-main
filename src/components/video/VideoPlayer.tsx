@@ -26,7 +26,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
           metadata-video-title="Test VOD"
           title={`${video.title}`}
           metadata-viewer-user-id={userId}
-          className="lg:h-[600px] md:h-[500px] sm:h-[400px] h-[280px] w-full rounded-md"
+          className="lg:h-[600px] md:h-[500px] sm:h-[400px] h-[280px] w-full rounded-md dark:bg-black bg-white"
         />
       </div>
     </div>
