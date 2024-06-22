@@ -21,7 +21,7 @@ const UploadVideoModel: React.FC<UploadVideoModalProps> = ({ onUpload }) => {
     uploadVideoModal?.onClose();
   };
   return (
-    <div className="absolute mt-10 left-1/2 lg:w-5/6  lg:h-5/6 w-full  rounded-xl  transform -translate-x-1/2 -translatex-y-1/2 flex flex-col justify-start bg-gray-100 shadow-md text-black dark:bg-gray-700 dark:text-white mb-10 z-50">
+    <div className="absolute mt-10 left-1/2 lg:w-5/6  lg:h-5/6 w-full h-[50vh]  rounded-xl  transform -translate-x-1/2 -translatex-y-1/2 flex flex-col justify-start bg-gray-100 shadow-md text-black dark:bg-gray-700 dark:text-white mb-10 z-50">
       <div className="p-3 border-b border-gray-500 flex justify-between">
         <h1 className="text-xl font-bold usespan text-center">Upload Video</h1>
         <MdClose
