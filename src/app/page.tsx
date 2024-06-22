@@ -5,7 +5,7 @@ import LeftBar from "@/components/Leftbar";
 import VideoCard from "@/components/shared/VideoCard";
 import { Suspense } from "react";
 import { Channel, Video } from "@prisma/client";
-import { SkeletonCard } from "@/components/skill";
+import { SkeletonCard } from "@/components/Sketon";
 
 interface VideoWithChannel extends Video {
   channel: Channel;
