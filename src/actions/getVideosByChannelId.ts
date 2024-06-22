@@ -19,7 +19,7 @@ export default async function getVideosByChannelId(
     const videos = await prisma.video.findMany({
       where: query,
       orderBy: {
-        createdAt: "desc", // Order by createdAt in descending order
+        createdAt: "asc", // Order by createdAt in descending order
       },
     });
 
