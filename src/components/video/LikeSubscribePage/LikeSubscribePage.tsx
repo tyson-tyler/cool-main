@@ -1,8 +1,7 @@
 "use client";
-
 import { CurrentUserContext } from "@/context/CurrentUserContext";
 import { Channel, Video } from "@prisma/client";
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import Link from "next/link";
 import Avatar, { AvatarSize } from "@/components/Avatar";
 import { compactNumberFormat } from "@/utils/numUtils";
@@ -12,12 +11,14 @@ import LikeDisLikeButton from "../../LikeDisLikeButton";
 import DialogDemo from "@/components/Sharearea";
 import Report from "@/components/report";
 import Comment from "@/components/comments/Comment";
+import Loader from "@/components/Loader";
 // import Sharearea from "@/components/Sharearea";
 
 interface LikeSubscribePageProps {
   channel: Channel;
   video: Video;
 }
+
 const LikeSubscribePage: React.FC<LikeSubscribePageProps> = ({
   video,
   channel,
@@ -27,6 +28,25 @@ const LikeSubscribePage: React.FC<LikeSubscribePageProps> = ({
     channel?.name.length > 20
       ? channel.name.slice(0, 20) + "..."
       : channel.name;
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulating a loading delay with a timeout
+    const timeout = setTimeout(() => {
+      setLoading(false);
+    }, 1500); // Adjust the timeout duration as needed
+
+    return () => clearTimeout(timeout);
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center">
+        <Loader />
+      </div>
+    );
+  }
 
   return (
     <>
