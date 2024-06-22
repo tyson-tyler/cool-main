@@ -1,11 +1,12 @@
 import prisma from "@/vendor/db";
 import { Video } from "@prisma/client";
 
-interface GetVideoByChannelIdParams {
+interface GetVideosByChannelIdParams {
   channelId?: string;
 }
+
 export default async function getVideosByChannelId(
-  params: GetVideoByChannelIdParams
+  params: GetVideosByChannelIdParams
 ): Promise<Video[]> {
   try {
     const { channelId } = params;
@@ -14,12 +15,16 @@ export default async function getVideosByChannelId(
     if (channelId) {
       query.channelId = channelId;
     }
+
     const videos = await prisma.video.findMany({
       where: query,
+      orderBy: {
+        createdAt: "desc", // Order by createdAt in descending order
+      },
     });
 
     return videos;
   } catch (error: any) {
-    throw new error();
+    throw new Error(error);
   }
 }
