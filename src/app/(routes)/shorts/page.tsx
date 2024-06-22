@@ -1,13 +1,21 @@
 "use client";
 
-import { useEffect, useState, useRef, useCallback } from "react";
-import LeftBar from "@/components/Leftbar";
-import VideoCard from "@/components/videoTrue";
-import { Suspense } from "react";
+import {
+  useEffect,
+  useState,
+  useRef,
+  useCallback,
+  lazy,
+  Suspense,
+} from "react";
 import { Channel, Video } from "@prisma/client";
 import { SkeletonCard } from "@/components/skill";
 import { FilmIcon } from "lucide-react";
-import Bar from "@/components/Bar";
+
+// Lazy load components
+const LeftBar = lazy(() => import("@/components/Leftbar"));
+const VideoCard = lazy(() => import("@/components/videoTrue"));
+const Bar = lazy(() => import("@/components/Bar"));
 
 interface VideoWithChannel extends Video {
   channel: Channel;
@@ -75,18 +83,19 @@ const Home = () => {
 
   return (
     <div className="w-full relative mt-16 flex justify-around lg:justify-between">
-      <div className="sm:hidden md:flex flex flex-between md:mr-4 ">
-        <LeftBar subscribedChannels={subscriptions} />
+      <div className="sm:hidden md:flex flex flex-between md:mr-4">
+        <Suspense fallback={<div>Loading left bar...</div>}>
+          <LeftBar subscribedChannels={subscriptions} />
+        </Suspense>
       </div>
       <div className="flex flex-col">
         <div className="flex justify-center mt-3 mb-10 items-center">
           <FilmIcon className="w-10 h-10" />
           <span className="text-sm sm:text-sm md:text-lg lg:text-xl font-bold ml-3">
-            {" "}
-            Ai Films{" "}
+            Ai Films
           </span>
         </div>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<div>Loading videos...</div>}>
           <div className="basis-[85%] mb-[100px] lg:mb-[0px] gap-x-10 gap-y-10 mt-5 justify-center">
             {trendingVideos.length > 0
               ? trendingVideos.map((trendingVideo, index) => {
@@ -117,7 +126,9 @@ const Home = () => {
         </Suspense>
       </div>
       <div className="sm:hidden lg:flex flex flex-between md:mr-4 md:hidden">
-        <Bar />
+        <Suspense fallback={<div>Loading bar...</div>}>
+          <Bar />
+        </Suspense>
       </div>
     </div>
   );

@@ -1,11 +1,19 @@
 "use client";
 
-import { useEffect, useState, useRef, useCallback } from "react";
-import LeftBar from "@/components/Leftbar";
-import VideoCard from "@/components/shared/VideoCard";
-import { Suspense } from "react";
+import {
+  useEffect,
+  useState,
+  useRef,
+  useCallback,
+  lazy,
+  Suspense,
+} from "react";
 import { Channel, Video } from "@prisma/client";
 import { SkeletonCard } from "@/components/Sketon";
+
+// Lazy load components
+const LeftBar = lazy(() => import("@/components/Leftbar"));
+const VideoCard = lazy(() => import("@/components/shared/VideoCard"));
 
 interface VideoWithChannel extends Video {
   channel: Channel;
@@ -72,7 +80,9 @@ const Home = () => {
   return (
     <div className="w-full relative mt-16 flex justify-center">
       <div className="sm:hidden md:flex flex flex-between md:mr-4">
-        <LeftBar subscribedChannels={subscriptions} />
+        <Suspense fallback={<div>Loading LeftBar...</div>}>
+          <LeftBar subscribedChannels={subscriptions} />
+        </Suspense>
       </div>
       <Suspense fallback={<div>Loading...</div>}>
         <div className="lg:basis-[85%] basis-[95%] sm:mb-[100px] lg:mb-[0px] gap-x-10 gap-y-10 mt-5 justify-center grid-container lg:mr-5">

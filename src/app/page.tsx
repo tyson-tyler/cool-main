@@ -11,6 +11,7 @@ import {
 import { Channel, Video } from "@prisma/client";
 import { SkeletonCard } from "@/components/Sketon";
 
+// Lazy load components
 const LeftBar = lazy(() => import("@/components/Leftbar"));
 const VideoCard = lazy(() => import("@/components/shared/VideoCard"));
 
