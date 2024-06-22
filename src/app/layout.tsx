@@ -87,9 +87,9 @@ export default async function RootLayout({
                   <SidebarProvider>
                     <Navbar />
                     <NextjsTopLoader
-                      color="linear-gradient(to right, rgb(15, 23, 42), rgb(88, 28, 135), rgb(15, 23, 42))"
-                      initialPosition={0.08}
-                      crawlSpeed={1200}
+                      color="radial-gradient(at right top, rgb(236, 72, 153), rgb(239, 68, 68), rgb(234, 179, 8))"
+                      initialPosition={0.028}
+                      crawlSpeed={12200}
                       height={3}
                       crawl={true}
                       showSpinner={true}
