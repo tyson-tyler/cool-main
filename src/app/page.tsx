@@ -21,28 +21,28 @@ const Home = () => {
   const observer = useRef<IntersectionObserver>();
 
   const fetchTrendingVideos = async (offset: number, limit: number) => {
-    // try {
-    //   const response = await fetch(
-    //     `/api/hello?offset=${offset}&limit=${limit}`
-    //   );
-    //   const videos = await response.json();
-    //   setTrendingVideos((prevVideos) => [...prevVideos, ...videos]);
-    //   setHasMore(videos.length === limit);
-    // } catch (error) {
-    //   console.error("Failed to fetch trending videos", error);
-    // } finally {
-    //   setLoading(false);
-    // }
+    try {
+      const response = await fetch(
+        `/api/hello?offset=${offset}&limit=${limit}`
+      );
+      const videos = await response.json();
+      setTrendingVideos((prevVideos) => [...prevVideos, ...videos]);
+      setHasMore(videos.length === limit);
+    } catch (error) {
+      console.error("Failed to fetch trending videos", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const fetchSubscriptions = async () => {
-    // try {
-    //   const response = await fetch("/api/sub"); // Adjust the endpoint if necessary
-    //   const subs = await response.json();
-    //   setSubscriptions(subs);
-    // } catch (error) {
-    //   console.error("Failed to fetch subscriptions", error);
-    // }
+    try {
+      const response = await fetch("/api/sub"); // Adjust the endpoint if necessary
+      const subs = await response.json();
+      setSubscriptions(subs);
+    } catch (error) {
+      console.error("Failed to fetch subscriptions", error);
+    }
   };
 
   useEffect(() => {
@@ -74,9 +74,9 @@ const Home = () => {
   return (
     <div className="w-full relative mt-16 flex justify-center">
       <div className="sm:hidden md:flex flex flex-between md:mr-4">
-        {/* <LeftBar subscribedChannels={subscriptions} /> */}
+        <LeftBar subscribedChannels={subscriptions} />
       </div>
-      {/* <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<div>Loading...</div>}>
         <div className="lg:basis-[85%] basis-[95%] sm:mb-[100px] lg:mb-[0px] gap-x-10 gap-y-10 mt-5 justify-center grid-container lg:mr-5">
           {trendingVideos.length > 0
             ? trendingVideos.map((trendingVideo, index) => {
@@ -107,7 +107,7 @@ const Home = () => {
             : !loading && "No Videos"}
           {loading && <SkeletonCard />}
         </div>
-      </Suspense> */}
+      </Suspense>
     </div>
   );
 };
