@@ -13,9 +13,7 @@ import CommentSection from "@/components/video/CommentSection/CommentSection";
 import Description from "@/components/video/Description";
 import LikeSubscribePage from "@/components/video/LikeSubscribePage/LikeSubscribePage";
 import VideoPlayer from "@/components/video/VideoPlayer";
-import { Loader } from "lucide-react";
 import { Metadata } from "next";
-import { Suspense } from "react";
 import { BiComment } from "react-icons/bi";
 
 interface VideoPageProps {
@@ -91,26 +89,18 @@ export default async function VideoPage({
           </div>
 
           <div className="w-full grid-container gap-4 px-2 lg:px-7">
-            <Suspense
-              fallback={
-                <div>
-                  <Loader className="w-5 h-5 animate-spin" />
-                </div>
-              }
-            >
-              {recommendedVideos
-                ? recommendedVideos.map((recommendedVideo) => {
-                    return (
-                      <VideoCard
-                        key={recommendedVideo.id}
-                        video={recommendedVideo}
-                        channel={recommendedVideo.channel}
-                        channelAvatar={channel.imageSrc}
-                      />
-                    );
-                  })
-                : null}
-            </Suspense>
+            {recommendedVideos
+              ? recommendedVideos.map((recommendedVideo) => {
+                  return (
+                    <VideoCard
+                      key={recommendedVideo.id}
+                      video={recommendedVideo}
+                      channel={recommendedVideo.channel}
+                      channelAvatar={channel.imageSrc}
+                    />
+                  );
+                })
+              : null}
           </div>
         </div>
       </div>
