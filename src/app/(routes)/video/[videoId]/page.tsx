@@ -54,9 +54,9 @@ export default async function VideoPage({
     <>
       <div className="w-full relative  mt-16 flex justify-center">
         <div className="w-full flex flex-col gap-4">
-          {/* <div className="sm:hidden absolute top-1 z-[50] md:flex flex flex-between md:mr-4 ml-4">
+          <div className="sm:hidden absolute top-1 z-[50] md:flex flex flex-between md:mr-4 ml-4">
             <SheetDemo />
-          </div> */}
+          </div>
 
           <VideoPlayer
             video={video}
