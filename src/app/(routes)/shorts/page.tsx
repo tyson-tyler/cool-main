@@ -132,7 +132,14 @@ const Home = () => {
         </Suspense>
       </div>
       <div className="sm:hidden lg:flex flex flex-between md:mr-4 md:hidden">
-        <Suspense fallback={<div>Loading bar...</div>}>
+        <Suspense
+          fallback={
+            <div>
+              {" "}
+              <Loader className="w-5 h-5 animate-spin" />
+            </div>
+          }
+        >
           <Bar />
         </Suspense>
       </div>
