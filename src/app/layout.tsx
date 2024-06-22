@@ -89,12 +89,12 @@ export default async function RootLayout({
                     <NextjsTopLoader
                       color="radial-gradient(at right top, rgb(236, 72, 153), rgb(239, 68, 68), rgb(234, 179, 8))"
                       initialPosition={0.08}
-                      crawlSpeed={100}
+                      crawlSpeed={200}
                       height={3}
                       crawl={true}
                       showSpinner={true}
                       easing="ease"
-                      speed={11110}
+                      speed={600}
                     />
                     {children}
                     <Footer />
