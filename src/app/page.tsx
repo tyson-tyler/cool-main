@@ -21,18 +21,18 @@ const Home = () => {
   const observer = useRef<IntersectionObserver>();
 
   const fetchTrendingVideos = async (offset: number, limit: number) => {
-    try {
-      const response = await fetch(
-        `/api/hello?offset=${offset}&limit=${limit}`
-      );
-      const videos = await response.json();
-      setTrendingVideos((prevVideos) => [...prevVideos, ...videos]);
-      setHasMore(videos.length === limit);
-    } catch (error) {
-      console.error("Failed to fetch trending videos", error);
-    } finally {
-      setLoading(false);
-    }
+    // try {
+    //   const response = await fetch(
+    //     `/api/hello?offset=${offset}&limit=${limit}`
+    //   );
+    //   const videos = await response.json();
+    //   setTrendingVideos((prevVideos) => [...prevVideos, ...videos]);
+    //   setHasMore(videos.length === limit);
+    // } catch (error) {
+    //   console.error("Failed to fetch trending videos", error);
+    // } finally {
+    //   setLoading(false);
+    // }
   };
 
   const fetchSubscriptions = async () => {
