@@ -7,8 +7,6 @@ import { Suspense, lazy } from "react";
 
 import { Vortex } from "./ui/votex";
 
-import CardList from "./blog/cardlist";
-
 // export const metadata: Metadata = {
 //   title: {
 //     absolute: "Home",
