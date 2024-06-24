@@ -33,7 +33,7 @@ export default async function VideoPage({
 
   // Dynamically import components
   const SheetDemo = (await import("@/components/he")).SheetDemo;
-  const VideoCard = (await import("@/components/shared/VideoCard")).default;
+  const VideoCard = (await import("@/components/shared/VideoTrop")).default;
   const SkeletonCard = (await import("@/components/skill")).SkeletonCard;
   const { Dialog, DialogContent, DialogTrigger } = await import(
     "@/components/ui/dialog"
