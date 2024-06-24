@@ -30,7 +30,7 @@ const page = async () => {
       </div>
       <div className="flex flex-col w-full">
         <div className="flex justify-center items-center mt-40">
-          <Avatar size={AvatarSize.extra} imageSrc={currentChannel?.imageSrc} />
+          <Avatar size={AvatarSize.large} imageSrc={currentChannel?.imageSrc} />
         </div>
         <div className="flex flex-col w-full h-full">
           <AnalayticSummary videos={videos} />
