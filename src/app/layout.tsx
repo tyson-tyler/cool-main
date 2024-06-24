@@ -70,7 +70,7 @@ export default async function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${inter.className} suppressHydrationWarning dark:bg-black dark:text-white text-black`}
+        className={`${inter.className} suppressHydrationWarning dark:bg-black dark:text-white  text-black`}
       >
         <CreateChannelModalProvider>
           <Toaster />

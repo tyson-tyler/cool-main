@@ -2,6 +2,7 @@
 
 import MediaUpload from "@/components/PhotoUpload";
 import TextArea from "@/components/shared/TextArea";
+
 import Image from "next/image";
 import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
 import { BiImageAdd } from "react-icons/bi";
@@ -22,7 +23,7 @@ const VideoUploadForm: React.FC<VideoUploadFormProps> = ({
   isLoading,
 }) => {
   return (
-    <div className="w-full flex flex-col gap-6 mb-[100px]">
+    <div className="w-full lg:maxw-[1200px] lg:m:auto flex flex-col gap-6 ">
       <TextArea
         register={register}
         id="title"
@@ -42,7 +43,7 @@ const VideoUploadForm: React.FC<VideoUploadFormProps> = ({
         required
       />
 
-      <div className="mb-50">
+      <div className="mb-50 shadow-lg bg-white rounded-md">
         <MediaUpload
           onChange={(value) => !isLoading && changeValue("thumbnailSrc", value)}
         >
