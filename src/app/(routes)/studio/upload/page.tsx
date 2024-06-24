@@ -74,7 +74,7 @@ export default function UploadPage() {
         />
       )}
 
-      <div className="flex flex-col px-7 pt-4 mt-[70px]">
+      <div className="flex flex-col lg:px-7 md:px-5 sm:p-[12px] p-[12px] pt-4 mt-[70px]">
         <div className="flex justify-between items-center">
           <h1 className="text-2xl usespan font-semibold">Upload</h1>
           <span className="flex gap-4">
