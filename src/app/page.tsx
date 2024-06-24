@@ -10,6 +10,7 @@ import {
 } from "react";
 import { Channel, Video } from "@prisma/client";
 import { SkeletonCard } from "@/components/Sketon";
+import { Loader } from "lucide-react";
 
 // Lazy load components
 const LeftBar = lazy(() => import("@/components/Leftbar"));
@@ -82,7 +83,13 @@ const Home = () => {
   return (
     <div className="w-full relative mt-16 flex justify-center">
       <div className="sm:hidden md:flex flex flex-between md:mr-4">
-        <Suspense fallback={<div>Loading left bar...</div>}>
+        <Suspense
+          fallback={
+            <div>
+              <Loader className="w-5 h-5 animate-spin" />
+            </div>
+          }
+        >
           <LeftBar subscribedChannels={subscriptions} />
         </Suspense>
       </div>
