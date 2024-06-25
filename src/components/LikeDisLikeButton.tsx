@@ -10,7 +10,6 @@ import {
 } from "react-icons/md";
 import { Heart, Loader2 } from "lucide-react";
 import { IoHeart, IoHeartOutline } from "react-icons/io5";
-import { FaHeart } from "react-icons/fa";
 
 interface LikeDisLikeButtonProps {
   video: Video;
@@ -21,16 +20,23 @@ const LikeDisLikeButton: React.FC<LikeDisLikeButtonProps> = ({ video }) => {
     videoId: video.id,
   });
 
-  const [loading, setLoading] = useState(false);
+  const [loadingLike, setLoadingLike] = useState(false);
+  const [loadingDislike, setLoadingDislike] = useState(false);
   const [likeAnimating, setLikeAnimating] = useState(false);
 
   const handleLikeDislike = async (action: "like" | "dislike") => {
-    setLoading(true);
     if (action === "like") {
+      setLoadingLike(true);
       setLikeAnimating(true);
+    } else {
+      setLoadingDislike(true);
     }
     await toogleLikeDislike(action);
-    setLoading(false);
+    if (action === "like") {
+      setLoadingLike(false);
+    } else {
+      setLoadingDislike(false);
+    }
   };
 
   useEffect(() => {
@@ -58,14 +64,15 @@ const LikeDisLikeButton: React.FC<LikeDisLikeButtonProps> = ({ video }) => {
           }
         }
       `}</style>
-      <div className="flex items-center gap-1 dark:bg-neutral-800 bg-gray-200 rounded-full px-3 py-2 dark:text-white text-black font-medium">
+      <div className="flex items-center gap-1 dark:bg-neutral-800  rounded-full px-3 py-2 dark:text-white text-black font-medium">
         <button
           className={`pr-3 border-r-2 border-neutral-600 flex items-center gap-3 ${
             likeAnimating ? "animate-like" : ""
           }`}
           onClick={() => handleLikeDislike("like")}
+          disabled={loadingLike}
         >
-          {loading ? (
+          {loadingLike ? (
             <span>
               <Loader2 className="w-5 h-5 animate-spin" />
             </span>
@@ -76,13 +83,15 @@ const LikeDisLikeButton: React.FC<LikeDisLikeButtonProps> = ({ video }) => {
           )}
           <p>{compactNumberFormat(video.likeCount)}</p>
         </button>
-        <button className="pl-2" onClick={() => handleLikeDislike("dislike")}>
-          {loading ? (
-            <div className="spinner-border" role="status">
-              <span>
-                <Loader2 className="w-5 h-5 animate-spin" />
-              </span>
-            </div>
+        <button
+          className="pl-2"
+          onClick={() => handleLikeDislike("dislike")}
+          disabled={loadingDislike}
+        >
+          {loadingDislike ? (
+            <span>
+              <Loader2 className="w-5 h-5 animate-spin" />
+            </span>
           ) : likeDislikeStatus === LikeDislikeStatus.Disliked ? (
             <MdThumbDown className="w-6 h-6" />
           ) : (

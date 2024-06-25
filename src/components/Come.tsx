@@ -35,7 +35,7 @@ const DialogDemo: React.FC<VideoCardProps> = ({ video }) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <div className="dark:bg-neutral-800 rounded-full bg-gray-200 dark:hover:bg-gray-900 hover:bg-gray-400  hover:scale-105 transition px-3 py-2 dark:text-white text-black font-medium">
+        <div className="dark:bg-neutral-800 rounded-full  dark:hover:bg-gray-900 hover:bg-gray-400  hover:scale-105 transition px-3 py-2 dark:text-white text-black font-medium">
           <Share2 className="w-6 h-6 flex justify-center items-center" />
         </div>
       </DialogTrigger>
