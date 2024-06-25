@@ -8,7 +8,9 @@ import {
   MdThumbDown,
   MdThumbUp,
 } from "react-icons/md";
-import { Loader2 } from "lucide-react";
+import { Heart, Loader2 } from "lucide-react";
+import { IoHeart, IoHeartOutline } from "react-icons/io5";
+import { FaHeart } from "react-icons/fa";
 
 interface LikeDisLikeButtonProps {
   video: Video;
@@ -68,9 +70,9 @@ const LikeDisLikeButton: React.FC<LikeDisLikeButtonProps> = ({ video }) => {
               <Loader2 className="w-5 h-5 animate-spin" />
             </span>
           ) : likeDislikeStatus === LikeDislikeStatus.Liked ? (
-            <MdThumbUp className="w-6 h-6" />
+            <IoHeart className="w-6 h-6 text-red-500" />
           ) : (
-            <MdOutlineThumbUp className="h-6 w-6" />
+            <IoHeartOutline className="h-6 w-6" />
           )}
           <p>{compactNumberFormat(video.likeCount)}</p>
         </button>
