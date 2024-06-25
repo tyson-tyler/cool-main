@@ -1,5 +1,4 @@
 "use client";
-
 import { useEffect, useState, useRef, useCallback } from "react";
 import LeftBar from "@/components/Leftbar";
 import VideoCard from "@/components/shared/VideoCard";
@@ -19,6 +18,7 @@ const Home = () => {
   const limit = 2;
   const [loading, setLoading] = useState(true);
   const [hasMore, setHasMore] = useState(true);
+  const [endOfVideos, setEndOfVideos] = useState(false);
   const observer = useRef<IntersectionObserver>();
 
   const fetchLikedVideos = async () => {
@@ -40,8 +40,12 @@ const Home = () => {
         `/api/hello?offset=${offset}&limit=${limit}`
       );
       const videos = await response.json();
-      setTrendingVideos((prevVideos) => [...prevVideos, ...videos]);
-      setHasMore(videos.length === limit);
+      if (videos.length === 0) {
+        setEndOfVideos(true);
+      } else {
+        setTrendingVideos((prevVideos) => [...prevVideos, ...videos]);
+        setHasMore(videos.length === limit);
+      }
     } catch (error) {
       console.error("Failed to fetch trending videos", error);
     } finally {
@@ -51,7 +55,7 @@ const Home = () => {
 
   const fetchSubscriptions = async () => {
     try {
-      const response = await fetch("/api/sub"); // Adjust the endpoint if necessary
+      const response = await fetch("/api/sub");
       const subs = await response.json();
       setSubscriptions(subs);
     } catch (error) {
@@ -74,7 +78,7 @@ const Home = () => {
 
   const lastVideoElementRef = useCallback(
     (node: any) => {
-      if (loading) return;
+      if (loading || endOfVideos) return;
       if (observer.current) observer.current.disconnect();
       observer.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting && hasMore) {
@@ -83,7 +87,7 @@ const Home = () => {
       });
       if (node) observer.current.observe(node);
     },
-    [loading, hasMore]
+    [loading, hasMore, endOfVideos]
   );
 
   return (
@@ -96,7 +100,14 @@ const Home = () => {
           {likedVideos.length > 0 && (
             <>
               {likedVideos.map((likedVideo, index) => (
-                <div ref={lastVideoElementRef} key={likedVideo.id}>
+                <div
+                  ref={
+                    index === likedVideos.length - 1
+                      ? lastVideoElementRef
+                      : undefined
+                  }
+                  key={likedVideo.id}
+                >
                   <VideoCard
                     key={likedVideo.id}
                     video={likedVideo}
@@ -108,7 +119,11 @@ const Home = () => {
             </>
           )}
 
-          {loading && <SkeletonCard />}
+          {loading && ""}
+
+          {endOfVideos && (
+            <div className="text-center text-gray-500 mt-4">End of videos.</div>
+          )}
         </div>
       </Suspense>
     </div>
