@@ -95,7 +95,9 @@ const VideoCard: React.FC<VideoCardProps> = ({
             <div>
               <LikeDisLikeButton video={video} />
             </div>
-            <Avatar size={AvatarSize.medium} imageSrc={channel.imageSrc} />
+            <Link href={`/channel/${channel.id}`}>
+              <Avatar size={AvatarSize.medium} imageSrc={channel.imageSrc} />
+            </Link>
             <div className="flex-col hidden sm:hidden lg:flex">
               <p className="text-gray-500 text-sm whitespace-nowrap">
                 {channel.name}
