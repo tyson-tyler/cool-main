@@ -93,7 +93,7 @@ const Home = () => {
           <LeftBar subscribedChannels={subscriptions} />
         </Suspense>
       </div>
-      <div className="lg:basis-[85%] basis-[95%] sm:mb-[100px] lg:mb-[0px] gap-x-10 gap-y-10 mt-5 justify-center grid-container lg:mr-5">
+      <div className="lg:basis-[85%] basis-[95%] md:basis-[85%] sm:mb-[100px] lg:mb-[0px] gap-x-10 gap-y-10 mt-5 justify-center grid-container lg:mr-5">
         {trendingVideos.length > 0
           ? trendingVideos.map((trendingVideo, index) => {
               if (trendingVideos.length === index + 1) {

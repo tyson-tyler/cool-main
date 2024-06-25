@@ -47,7 +47,7 @@ const DialogDemo: React.FC<VideoCardProps> = ({ video }) => {
           </DialogDescription>
         </DialogHeader>
         <div className="flex gap-4 py-4 flex-wrap">
-          <div className="flex justify-center items-center gap-4">
+          <div className="flex justify-center items-center gap-4 flex-wrap">
             <FacebookShareButton url={`https://myaimix.com/video/${video.id}`}>
               <FacebookIcon className="w-10 h-10 rounded-full" />
             </FacebookShareButton>

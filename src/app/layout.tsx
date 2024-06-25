@@ -80,7 +80,7 @@ export default async function RootLayout({
               <UploadVideoModalProvider>
                 <ThemeProvider
                   attribute="class"
-                  defaultTheme="system"
+                  defaultTheme="dark"
                   enableSystem
                   disableTransitionOnChange
                 >
