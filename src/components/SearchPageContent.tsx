@@ -6,8 +6,9 @@ import toast from "react-hot-toast";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Loader } from "lucide-react";
 import Image from "next/image";
-import VideoCard from "./shared/VideoCard";
+
 import { SkeletonCard } from "./Sketon";
+import VideoCard from "./shared/hello";
 
 export default function SearchPageContent() {
   const params = useSearchParams();
@@ -60,7 +61,12 @@ export default function SearchPageContent() {
           </div>
         ) : videos.length ? (
           videos.map((video) => (
-            <VideoCard key={video.id} video={video} channel={video.channel} />
+            <VideoCard
+              key={video.id}
+              video={video}
+              channel={video.channel}
+              channelAvatar={video.channel.imageSrc}
+            />
           ))
         ) : (
           <div className="w-full h-fit justify-center flex items-center flex-col">
