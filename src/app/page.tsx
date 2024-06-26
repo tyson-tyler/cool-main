@@ -10,7 +10,6 @@ import {
 } from "react";
 import { Channel, Video } from "@prisma/client";
 import { SkeletonCard } from "@/components/Sketon";
-import { Loader } from "lucide-react";
 import { SkeletonDemo } from "@/components/shared/Trop";
 
 // Lazy load components
@@ -25,47 +24,50 @@ const Home = () => {
   const [trendingVideos, setTrendingVideos] = useState<VideoWithChannel[]>([]);
   const [subscriptions, setSubscriptions] = useState<Channel[]>([]);
   const [offset, setOffset] = useState(0);
-  const limit = 1;
+  const limit = 10;
   const [loading, setLoading] = useState(true);
   const [hasMore, setHasMore] = useState(true);
   const observer = useRef<IntersectionObserver>();
 
-  const fetchTrendingVideos = async (offset: number, limit: number) => {
-    try {
-      const response = await fetch(
-        `/api/hello?offset=${offset}&limit=${limit}`
-      );
-      const videos = await response.json();
-      setTrendingVideos((prevVideos) => [...prevVideos, ...videos]);
-      setHasMore(videos.length === limit);
-    } catch (error) {
-      console.error("Failed to fetch trending videos", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const fetchTrendingVideos = useCallback(
+    async (offset: number, limit: number) => {
+      try {
+        const response = await fetch(
+          `/api/hello?offset=${offset}&limit=${limit}`
+        );
+        const videos = await response.json();
+        setTrendingVideos((prevVideos) => [...prevVideos, ...videos]);
+        setHasMore(videos.length === limit);
+      } catch (error) {
+        console.error("Failed to fetch trending videos", error);
+      } finally {
+        setLoading(false);
+      }
+    },
+    []
+  );
 
-  const fetchSubscriptions = async () => {
+  const fetchSubscriptions = useCallback(async () => {
     try {
-      const response = await fetch("/api/sub"); // Adjust the endpoint if necessary
+      const response = await fetch("/api/sub");
       const subs = await response.json();
       setSubscriptions(subs);
     } catch (error) {
       console.error("Failed to fetch subscriptions", error);
     }
-  };
+  }, []);
 
   useEffect(() => {
     setLoading(true);
-    fetchTrendingVideos(0, limit); // Initial fetch
+    fetchTrendingVideos(0, limit);
     fetchSubscriptions();
-  }, []);
+  }, [fetchTrendingVideos, fetchSubscriptions]);
 
   useEffect(() => {
     if (offset === 0) return;
     setLoading(true);
-    fetchTrendingVideos(offset, limit); // Fetch more videos when offset changes
-  }, [offset]);
+    fetchTrendingVideos(offset, limit);
+  }, [offset, fetchTrendingVideos]);
 
   const lastVideoElementRef = useCallback(
     (node: any) => {
@@ -84,13 +86,7 @@ const Home = () => {
   return (
     <div className="w-full relative mt-16 flex justify-center">
       <div className="sm:hidden md:flex flex flex-between md:mr-4">
-        <Suspense
-          fallback={
-            <div>
-              <SkeletonDemo />
-            </div>
-          }
-        >
+        <Suspense fallback={<SkeletonDemo />}>
           <LeftBar subscribedChannels={subscriptions} />
         </Suspense>
       </div>
