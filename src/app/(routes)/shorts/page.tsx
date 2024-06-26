@@ -10,7 +10,7 @@ import {
 } from "react";
 import { Channel, Video } from "@prisma/client";
 import { SkeletonCard } from "@/components/skill";
-import { FilmIcon, Loader, Loader2 } from "lucide-react";
+import { FilmIcon, Loader } from "lucide-react";
 
 // Lazy load components
 const LeftBar = lazy(() => import("@/components/Leftbar"));

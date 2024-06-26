@@ -6,8 +6,8 @@ import Link from "next/link";
 import Avatar, { AvatarSize } from "../Avatar";
 import { compactNumberFormat } from "@/utils/numUtils";
 import dayjs from "@/vendor/devjs";
-import { Suspense } from "react";
-import SuspenseImage from "./SuspenseImage";
+import { Suspense, useState, useEffect } from "react";
+import { SkeletonDemo } from "./Trop";
 
 interface VideoCardProps {
   channel?: Channel;
@@ -21,6 +21,19 @@ const VideoCard: React.FC<VideoCardProps> = ({
   video,
   includeDescription = false,
 }) => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (channel && channel.imageSrc) {
+      const img = document.createElement("img");
+      img.src = channel.imageSrc;
+      img.onload = () => setLoading(false);
+      img.onerror = () => setLoading(false);
+    } else {
+      setLoading(false);
+    }
+  }, [channel]);
+
   const truncatedTitle =
     video?.title.length > 20 ? video.title.slice(0, 20) + "..." : video.title;
 
@@ -51,7 +64,14 @@ const VideoCard: React.FC<VideoCardProps> = ({
         {channel && (
           <div className="flex gap-2 items-center">
             <Link href={`/channel/${channel.id}`} prefetch>
-              <Avatar size={AvatarSize?.medium} imageSrc={channel?.imageSrc} />
+              {loading ? (
+                <SkeletonDemo />
+              ) : (
+                <Avatar
+                  size={AvatarSize?.medium}
+                  imageSrc={channel?.imageSrc}
+                />
+              )}
             </Link>
             <div className="flex flex-col">
               <h3 className="font-semibold text-lg">{truncatedTitle}</h3>

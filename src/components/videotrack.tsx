@@ -4,11 +4,12 @@ import Link from "next/link";
 import Avatar, { AvatarSize } from "../components/Avatar";
 import { compactNumberFormat } from "@/utils/numUtils";
 import dayjs from "@/vendor/devjs";
+import { Button } from "./ui/button";
 
 interface VideoCardProps {
   channel?: Channel;
   channelAvatar?: boolean;
-  video: Video;
+  video?: Video; // Make video prop optional
   includeDescription?: boolean;
   isVertical?: boolean;
 }
@@ -20,15 +21,39 @@ const VideoTrack: React.FC<VideoCardProps> = ({
   includeDescription = false,
   isVertical = true,
 }) => {
+  // Check if video is undefined or null
+  if (!video) {
+    return (
+      <div className="flex flex-col justify-center items-center">
+        <Image
+          src={"/logo/em.svg"}
+          width={100}
+          height={100}
+          alt="hello"
+          className="mt-20"
+        />
+        <span className="font-semibold text-black dark:text-white p-4">
+          No Video
+        </span>
+        <Link href={`/studio/upload`}>
+          <Button size={"lg"} className="p-3">
+            Create Now
+          </Button>
+        </Link>
+      </div>
+    ); // Placeholder message for no video
+  }
+
   const truncatedTitle =
     video.title.length > 20 ? video.title.slice(0, 20) + "..." : video.title;
+
   return (
-    <Link className="mt-3 mb-3" href={`/video/${video.id}`} prefetch={true}>
+    <Link href={`/video/${video.id}`} prefetch={true}>
       <div className="relative flex justify-center md:h-[400px] lg:h-[500px] max-w-96 sm:h-[400px] h-[400px] aspect-video">
         <Image
           className="object-cover hover:scale-105 rounded-md duration-150 transtion-all ease-in"
           src={video.thumbnailSrc}
-          alt="thumatil"
+          alt="Thumbnail"
           layout="fill"
           loading="lazy"
         />
@@ -52,13 +77,17 @@ const VideoTrack: React.FC<VideoCardProps> = ({
           </div>
         ) : null}
         <p className="text-gray-500 text-sm  mt-2 mb-1">
-          {compactNumberFormat(video.viewCount)} watchs * {""}
+          {compactNumberFormat(video.viewCount)} watches •{" "}
           {dayjs(video.createdAt).fromNow()}
         </p>
         {includeDescription ? (
           <div className="whitespace-pre-line text-sm text-gray-500">
-            {video.description.split("/n").map((line, index) => {
-              return line === "" ? <br key={index} /> : <p>{line}</p>;
+            {video.description.split("\n").map((line, index) => {
+              return line === "" ? (
+                <br key={index} />
+              ) : (
+                <p key={index}>{line}</p>
+              );
             })}
           </div>
         ) : null}
@@ -66,4 +95,5 @@ const VideoTrack: React.FC<VideoCardProps> = ({
     </Link>
   );
 };
+
 export default VideoTrack;
