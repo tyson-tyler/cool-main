@@ -26,7 +26,7 @@ export default async function ChannelPage({
           <LeftBar subscribedChannels={subscriptions} />
         </div>
 
-        <div className="flex ml-0 flex-col mr-10 lg:ml-5 w-full">
+        <div className="flex ml-0 flex-col lg:ml-5 w-full">
           <div>
             <div className="flex flex-col">
               <ChannelHeader channel={channel} videoCount={videos.length} />
