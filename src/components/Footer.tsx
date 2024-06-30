@@ -8,6 +8,8 @@ import { BiSolidCloudUpload, BiSolidParty } from "react-icons/bi";
 import { GiFilmSpool } from "react-icons/gi";
 import { RiAccountPinBoxFill } from "react-icons/ri";
 import { FaPaintBrush, FaGrinHearts } from "react-icons/fa";
+import { FaFilm } from "react-icons/fa";
+import { BiSolidVideoPlus } from "react-icons/bi";
 
 const Footer = () => {
   const createChannelModal = useContext(CreateChannelModalContext);
@@ -30,9 +32,9 @@ const Footer = () => {
   const menuItems = [
     { icon: <SiHomeadvisor />, path: "/", name: "Home" },
     { icon: <BiSolidParty />, path: "/creator", name: "Popular" },
-    { icon: <GiFilmSpool />, path: "/shorts", name: "Clips" },
+    { icon: <FaFilm />, path: "/shorts", name: "Clips" },
     {
-      icon: <BiSolidCloudUpload />,
+      icon: <BiSolidVideoPlus />,
       path: "/studio/upload",
       name: "Upload",
       requiresChannel: true,
