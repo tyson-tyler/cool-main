@@ -85,42 +85,30 @@ const Home = () => {
   );
 
   return (
-    <div className="w-full relative mt-16 flex justify-center">
-      <div className="hidden md:flex lg:flex flex-between md:mr-4">
-        <Suspense fallback={<SkeletonDemo />}>
-          <LeftBar subscribedChannels={subscriptions} />
-        </Suspense>
+    <div className="w-full relative mt-16 flex md:flex-row lg:flex-row">
+      <div className="hidden md:flex">
+        <LeftBar subscribedChannels={subscriptions} />
       </div>
-      <div className="lg:basis-[85%] basis-[95%] md:basis-[85%] sm:mb-[100px] lg:mb-[0px] gap-x-10 gap-y-10 mt-5 justify-center grid-container lg:mr-5">
+      <div className="flex-1 grid-container gap-4 p-4">
         {trendingVideos.length > 0
           ? trendingVideos.map((trendingVideo, index) => {
               if (trendingVideos.length === index + 1) {
                 return (
-                  <Suspense
-                    fallback={<SkeletonCard />}
-                    key={trendingVideo.channelId}
-                  >
-                    <div ref={lastVideoElementRef}>
-                      <VideoCard
-                        video={trendingVideo}
-                        channel={trendingVideo.channel}
-                        channelAvatar={trendingVideo.channel.imageSrc}
-                      />
-                    </div>
-                  </Suspense>
-                );
-              } else {
-                return (
-                  <Suspense
-                    fallback={<SkeletonCard />}
-                    key={trendingVideo.channelId}
-                  >
+                  <div ref={lastVideoElementRef}>
                     <VideoCard
                       video={trendingVideo}
                       channel={trendingVideo.channel}
                       channelAvatar={trendingVideo.channel.imageSrc}
                     />
-                  </Suspense>
+                  </div>
+                );
+              } else {
+                return (
+                  <VideoCard
+                    video={trendingVideo}
+                    channel={trendingVideo.channel}
+                    channelAvatar={trendingVideo.channel.imageSrc}
+                  />
                 );
               }
             })

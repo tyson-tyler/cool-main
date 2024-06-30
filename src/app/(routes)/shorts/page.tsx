@@ -13,7 +13,7 @@ import { SkeletonCard } from "@/components/skill";
 import { FilmIcon, Loader } from "lucide-react";
 
 // Lazy load components
-const LeftBar = lazy(() => import("@/components/Leftbar"));
+const LeftBar = lazy(() => import("@/components/Sidbar"));
 const VideoCard = lazy(() => import("@/components/videoTrue"));
 const Bar = lazy(() => import("@/components/Bar"));
 

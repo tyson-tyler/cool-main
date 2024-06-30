@@ -112,9 +112,7 @@ const LeftBar: React.FC<SideBarProps> = ({ subscribedChannels }) => {
                 <div className="flex items-center justify-center gap-7 text-2xl">
                   {item.icon}
 
-                  <span className="hidden lg:block text-lg font-semibold">
-                    {item.name}
-                  </span>
+                  <span className="text-lg font-semibold">{item.name}</span>
                 </div>
               </div>
             )

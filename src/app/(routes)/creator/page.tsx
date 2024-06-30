@@ -11,6 +11,7 @@ import { Channel, Video } from "@prisma/client";
 import { SkeletonCard } from "@/components/Sketon";
 import Loader from "@/components/Loader";
 import axios from "axios"; // Import Axios for making HTTP requests
+import { SkeletonDemo } from "@/components/shared/Trop";
 
 // Lazy load components
 const LeftBar = lazy(() => import("@/components/Leftbar"));
@@ -81,41 +82,32 @@ const Home = () => {
   );
 
   return (
-    <div className="w-full relative mt-16 flex justify-center">
-      <div className="sm:hidden md:flex flex flex-between md:mr-4">
-        <Suspense
-          fallback={
-            <div>
-              <Loader />
-            </div>
-          }
-        >
-          <LeftBar subscribedChannels={subscriptions} />
-        </Suspense>
+    <div className="w-full relative mt-16 flex md:flex-row lg:flex-row">
+      <div className="hidden md:flex">
+        <LeftBar subscribedChannels={subscriptions} />
       </div>
-      <Suspense fallback={<div>Loading...</div>}>
-        <div className="lg:basis-[85%] basis-[95%] sm:mb-[100px] lg:mb-[0px] gap-x-10 gap-y-10 mt-5 justify-center grid-container lg:mr-5">
-          {trendingVideos.length > 0
-            ? trendingVideos.map((trendingVideo, index) => (
-                <div
-                  ref={
-                    index === trendingVideos.length - 1
-                      ? lastVideoElementRef
-                      : undefined
-                  }
-                  key={trendingVideo.id}
-                >
-                  <VideoCard
-                    video={trendingVideo}
-                    channel={trendingVideo.channel}
-                    channelAvatar={trendingVideo.channel.imageSrc}
-                  />
-                </div>
-              ))
-            : !loading && "No Videos"}
-          {loading && <SkeletonCard />}
-        </div>
-      </Suspense>
+
+      <div className="flex-1 grid-container gap-4 p-4">
+        {trendingVideos.length > 0
+          ? trendingVideos.map((trendingVideo, index) => (
+              <div
+                ref={
+                  index === trendingVideos.length - 1
+                    ? lastVideoElementRef
+                    : undefined
+                }
+                key={trendingVideo.id}
+              >
+                <VideoCard
+                  video={trendingVideo}
+                  channel={trendingVideo.channel}
+                  channelAvatar={trendingVideo.channel.imageSrc}
+                />
+              </div>
+            ))
+          : !loading && "No Videos"}
+        {loading && <SkeletonCard />}
+      </div>
     </div>
   );
 };
