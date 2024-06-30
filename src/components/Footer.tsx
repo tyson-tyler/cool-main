@@ -10,6 +10,7 @@ import { RiAccountPinBoxFill } from "react-icons/ri";
 import { FaPaintBrush, FaGrinHearts } from "react-icons/fa";
 import { FaFilm } from "react-icons/fa";
 import { BiSolidVideoPlus } from "react-icons/bi";
+import { Search } from "lucide-react";
 
 const Footer = () => {
   const createChannelModal = useContext(CreateChannelModalContext);
@@ -50,6 +51,10 @@ const Footer = () => {
       path: "/like",
       requiresChannel: true,
       name: "Like",
+    },
+    {
+      icon: <Search />,
+      path: "/search",
     },
     {
       icon: <FaPaintBrush />,

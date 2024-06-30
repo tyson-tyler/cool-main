@@ -1,7 +1,8 @@
 import { Suspense } from "react";
 
-import SearchPageContent from "@/components/SearchPageContent";
+import SearchPageContent from "@/components/Tension";
 import { Loader } from "lucide-react";
+import Input from "@/components/Input";
 
 export default function SearchPage() {
   return (
@@ -14,6 +15,9 @@ export default function SearchPage() {
         </div>
       }
     >
+      <div className="mt-16">
+        <Input />
+      </div>
       <SearchPageContent />
     </Suspense>
   );
