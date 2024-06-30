@@ -25,7 +25,7 @@ export default async function ChannelPage({
   return channel ? (
     <>
       <div className="flex">
-        <div className="sm:hidden md:flex flex flex-between md:mr-0 mt-12 md:ml-5 lg:ml-0">
+        <div className="sm:hidden md:flex flex flex-between md:mr-0 mt-12  lg:ml-0">
           <LeftBar subscribedChannels={subscriptions} />
         </div>
 
