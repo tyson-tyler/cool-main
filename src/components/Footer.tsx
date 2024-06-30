@@ -71,10 +71,12 @@ const Footer = () => {
           <div
             key={index}
             onClick={() => handleItemClick(item.path, item.requiresChannel)}
-            className="cursor-pointer text-2xl opacity-80 hover:opacity-100 transform transition hover:scale-110 justify-center items-center flex flex-col"
+            className="cursor-pointer  opacity-80 hover:opacity-100 transform transition hover:scale-110 justify-center items-center flex flex-col"
           >
             {item.icon}
-            <div className="text-[12px] text-center">{item.name}</div>
+            <div className="text-[12px] text-center font-semibold">
+              {item.name}
+            </div>
           </div>
         ))}
       </div>
