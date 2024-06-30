@@ -74,7 +74,7 @@ export default function UploadPage() {
         />
       )}
 
-      <div className="flex flex-col lg:px-7 md:px-5 sm:p-[12px] p-[12px] pt-4 mt-[70px]">
+      <div className="flex w-full flex-col lg:px-7 md:px-5 sm:p-[12px] p-[12px] pt-4 mt-[70px]">
         <div className="flex justify-between items-center">
           <h1 className="text-2xl usespan font-semibold">Upload</h1>
           <span className="flex gap-4">
@@ -102,7 +102,7 @@ export default function UploadPage() {
             </Button>
           </span>
         </div>
-        <div className="mt-6 flex flex-col md:flex-row gap-6 md:gap-4">
+        <div className="mt-6 lg:mt-16 flex flex-col md:flex-row gap-6 md:gap-4">
           <VideoUploadForm
             register={register}
             errors={errors}

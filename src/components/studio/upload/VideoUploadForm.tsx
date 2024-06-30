@@ -1,5 +1,6 @@
 "use client";
 
+import UploadVideoModel from "@/components/Modal/UploadVideoModel";
 import MediaUpload from "@/components/PhotoUpload";
 import TextArea from "@/components/shared/TextArea";
 
