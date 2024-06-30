@@ -70,8 +70,7 @@ export default async function VideoPage({
             />
           </Suspense>
 
-          {/* Rest of your components */}
-          {/* <div className="mx-2">
+          <div className="mx-2">
             <div>
               <LikeSubscribePage video={video} channel={channel} />
               <div className="flex justify-center w-full mt-4">
@@ -113,7 +112,6 @@ export default async function VideoPage({
                 : null}
             </Suspense>
           </div>
-        </div> */}
         </div>
       </div>
     </>
