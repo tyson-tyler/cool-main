@@ -85,7 +85,7 @@ const Home = () => {
 
   return (
     <div className="w-full relative mt-16 flex justify-center">
-      <div className="sm:hidden md:flex flex flex-between md:mr-4">
+      <div className="hidden md:flex lg:flex flex-between md:mr-4">
         <Suspense fallback={<SkeletonDemo />}>
           <LeftBar subscribedChannels={subscriptions} />
         </Suspense>

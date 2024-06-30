@@ -33,13 +33,13 @@ const LeftBar: React.FC<SideBarProps> = ({ subscribedChannels }) => {
 
   const currentChannel = useContext(CurrentChannelContext);
   useEffect(() => {
-    // router.prefetch("/about");
-    // router.prefetch("/creator");
-    // router.prefetch("/shorts");
-    // router.prefetch("/");
-    // router.prefetch(`/channel/${currentChannel?.id}`);
-    // router.prefetch("/studio");
-    // router.prefetch("/studio/upload");
+    router.prefetch("/about");
+    router.prefetch("/creator");
+    router.prefetch("/shorts");
+    router.prefetch("/");
+    router.prefetch(`/channel/${currentChannel?.id}`);
+    router.prefetch("/studio");
+    router.prefetch("/studio/upload");
   }, [router]);
 
   return (
