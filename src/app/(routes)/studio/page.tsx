@@ -24,8 +24,8 @@ const page = async () => {
 
   const videos = await getVideosByChannelId({ channelId: currentChannel?.id });
   return (
-    <div className="w-full flex">
-      <div className="sm:hidden border-r border-gray-500 md:flex flex flex-between md:mr-0 mt-12 md:ml-5 lg:ml-0">
+    <div className="w-full relative mt-16 flex md:flex-row lg:flex-row">
+      <div className="hidden md:flex">
         <LeftBar subscribedChannels={subscriptions} />
       </div>
       <div className="flex flex-col w-full">
