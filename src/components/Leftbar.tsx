@@ -90,7 +90,7 @@ const LeftBar: React.FC<SideBarProps> = ({ subscribedChannels }) => {
   };
 
   return (
-    <div className="sticky top-0 p-4 pt-20 h-screen hidden md:flex dark:bg-gray-50 dark:text-black overflow-y-auto bg-gray-900 text-white">
+    <div className="sticky top-0 p-4 pt-20 h-screen hidden md:flex bg-gray-50 dark:text-white overflow-y-auto dark:bg-gray-900 text-black">
       <div className="space-y-6">
         {menuItems.map((item, index) => (
           <div
