@@ -1,7 +1,7 @@
 "use client";
 import { CurrentUserContext } from "@/context/CurrentUserContext";
 import { Channel } from "@prisma/client";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import Avatar, { AvatarSize } from "./Avatar";
 import { SiHomeadvisor } from "react-icons/si";
 import MenuItems from "./MenuItems";
@@ -58,25 +58,29 @@ const LeftBar: React.FC<SideBarProps> = ({ subscribedChannels }) => {
     {
       name: "Channel",
       icon: <RiAccountPinBoxFill className="w-7 h-7" />,
-      path: currentChannel ? `/channel/${currentChannel.id}` : "",
+      path: currentUser
+        ? currentChannel
+          ? `/channel/${currentChannel.id}`
+          : ""
+        : "",
       requiresChannel: true,
     },
     {
       name: "Studio",
       icon: <FaPaintBrush className="w-7 h-7" />,
-      path: "/studio",
+      path: currentUser ? "/studio" : "",
       requiresChannel: true,
     },
     {
       name: "Like",
       icon: <FaKissWinkHeart className="w-7 h-7" />,
-      path: "/like",
+      path: currentUser ? "/like" : "",
       requiresChannel: true,
     },
     {
       name: "Upload",
       icon: <BiSolidCloudUpload className="w-7 h-7" />,
-      path: "/studio/upload",
+      path: currentUser ? "/studio/upload" : "",
       requiresChannel: true,
     },
   ];
@@ -90,24 +94,30 @@ const LeftBar: React.FC<SideBarProps> = ({ subscribedChannels }) => {
   };
 
   return (
-    <div className="sticky top-0 p-4 pt-20 h-screen hidden md:flex bg-gray-50 dark:text-white overflow-y-auto dark:bg-gray-900 text-black">
+    <div className="sticky top-0 p-4 pt-20 h-screen hidden md:flex bg-gray-50 dark:text-white dark:bg-neutral-900 overflow-y-auto   text-black">
       <div className="space-y-6">
-        {menuItems.map((item, index) => (
-          <div
-            key={index}
-            onClick={() => handleClick(item.path, item.requiresChannel)}
-            className={`flex items-center cursor-pointer transition-transform transform hover:scale-105 hover:bg-gray-700 p-2 rounded-md ${
-              pathname === item.path ? "bg-purple-600" : ""
-            }`}
-          >
-            <div className="flex items-center gap-3 text-2xl">
-              {item.icon}
-              <span className="hidden lg:block text-lg font-semibold">
-                {item.name}
-              </span>
-            </div>
-          </div>
-        ))}
+        {menuItems.map(
+          (item, index) =>
+            // Render menu item only if there's no requirement for current user or if there's a current user
+            (!item.requiresChannel || currentUser) && (
+              <div
+                key={index}
+                onClick={() => handleClick(item.path, item.requiresChannel)}
+                className={`flex items-center cursor-pointer transition-transform transform hover:scale-105 hover:bg-gray-100 dark:hover:bg-gray-700 p-2 rounded-md ${
+                  pathname === item.path
+                    ? "bg-purple-600 text-white hover:bg-purple-600"
+                    : ""
+                }`}
+              >
+                <div className="flex items-center gap-3 text-2xl">
+                  {item.icon}
+                  <span className="hidden lg:block text-lg font-semibold">
+                    {item.name}
+                  </span>
+                </div>
+              </div>
+            )
+        )}
         {currentUser ? (
           <div className="space-y-6">
             {subscribedChannels.map((channel) => (
