@@ -5,6 +5,7 @@ import VideoCard from "@/components/shared/VideoCard";
 import { Suspense } from "react";
 import { Channel, Video } from "@prisma/client";
 import { SkeletonCard } from "@/components/Sketon";
+import axios from "axios"; // Import Axios for fetching data
 
 interface VideoWithChannel extends Video {
   channel: Channel;
@@ -23,11 +24,11 @@ const Home = () => {
 
   const fetchLikedVideos = async () => {
     try {
-      const response = await fetch("/api/liked-videos");
-      if (!response.ok) {
+      const response = await axios.get("/api/liked-videos");
+      if (!response.data) {
         throw new Error("Failed to fetch liked videos");
       }
-      const data: VideoWithChannel[] = await response.json();
+      const data: VideoWithChannel[] = response.data;
       setLikedVideos(data);
     } catch (error) {
       console.error("Error fetching liked videos:", error);
@@ -36,10 +37,10 @@ const Home = () => {
 
   const fetchTrendingVideos = async (offset: number, limit: number) => {
     try {
-      const response = await fetch(
+      const response = await axios.get(
         `/api/hello?offset=${offset}&limit=${limit}`
       );
-      const videos = await response.json();
+      const videos = response.data;
       if (videos.length === 0) {
         setEndOfVideos(true);
       } else {
@@ -55,8 +56,8 @@ const Home = () => {
 
   const fetchSubscriptions = async () => {
     try {
-      const response = await fetch("/api/sub");
-      const subs = await response.json();
+      const response = await axios.get("/api/sub");
+      const subs = response.data;
       setSubscriptions(subs);
     } catch (error) {
       console.error("Failed to fetch subscriptions", error);
