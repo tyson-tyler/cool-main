@@ -35,7 +35,7 @@ const LikeSubscribePage: React.FC<LikeSubscribePageProps> = ({
     // Simulating a loading delay with a timeout
     const timeout = setTimeout(() => {
       setLoading(false);
-    }, 1500); // Adjust the timeout duration as needed
+    }, 1); // Adjust the timeout duration as needed
 
     return () => clearTimeout(timeout);
   }, []);

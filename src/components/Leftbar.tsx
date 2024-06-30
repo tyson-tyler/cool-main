@@ -103,7 +103,7 @@ const LeftBar: React.FC<SideBarProps> = ({ subscribedChannels }) => {
               <div
                 key={index}
                 onClick={() => handleClick(item.path, item.requiresChannel)}
-                className={`flex items-center cursor-pointer transition-transform transform hover:scale-105 hover:bg-gray-100 dark:hover:bg-gray-700 p-2 rounded-md ${
+                className={`flex items-center cursor-pointer transition-transform transform hover:scale-105 hover:bg-gray-100 dark:hover:bg-gray-700 p-[8px] rounded-md ${
                   pathname === item.path
                     ? "bg-purple-600 text-white hover:bg-purple-600"
                     : ""

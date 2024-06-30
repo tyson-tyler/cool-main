@@ -79,7 +79,7 @@ const LikeDisLikeButton: React.FC<LikeDisLikeButtonProps> = ({ video }) => {
           ) : likeDislikeStatus === LikeDislikeStatus.Liked ? (
             <IoHeart className="w-6 h-6 text-red-500" />
           ) : (
-            <IoHeartOutline className="h-6 w-6" />
+            <IoHeartOutline className="h-6 w-6 text-gray-500" />
           )}
           <p>{compactNumberFormat(video.likeCount)}</p>
         </button>
@@ -93,9 +93,9 @@ const LikeDisLikeButton: React.FC<LikeDisLikeButtonProps> = ({ video }) => {
               <Loader2 className="w-5 h-5 animate-spin" />
             </span>
           ) : likeDislikeStatus === LikeDislikeStatus.Disliked ? (
-            <MdThumbDown className="w-6 h-6" />
+            <MdThumbDown className="w-6 h-6 text-blue-500" />
           ) : (
-            <MdOutlineThumbDown className="h-6 w-6" />
+            <MdOutlineThumbDown className="h-6 w-6 text-gray-500" />
           )}
         </button>
       </div>
