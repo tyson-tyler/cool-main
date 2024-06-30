@@ -43,12 +43,9 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
         </div>
       )}
       <div className="dark:text-white text-black z-40 w-full">
-        <MuxPlayer
-          playback-id={videoSrc}
+        <video
           src={videoSrc}
-          theme="classic"
           autoPlay
-          streamType="on-demand"
           metadata-video-title="Test VOD"
           title={`${video.title}`}
           metadata-viewer-user-id={userId}
