@@ -62,12 +62,13 @@ export default async function VideoPage({
           <div className="sm:hidden absolute top-1 z-[50] md:flex flex flex-between md:mr-4 ml-4">
             <SheetDemo />
           </div>
-
-          <VideoPlayer
-            video={video}
-            userId={channel.userId}
-            videoSrc={video.videoSrc}
-          />
+          <Suspense fallback={"Loading"}>
+            <VideoPlayer
+              video={video}
+              userId={channel.userId}
+              videoSrc={video.videoSrc}
+            />
+          </Suspense>
 
           {/* Rest of your components */}
           {/* <div className="mx-2">
