@@ -27,21 +27,33 @@ const Footer = () => {
   }, [router, currentChannel]);
 
   const menuItems = [
-    { icon: <SiHomeadvisor />, path: "/" },
-    { icon: <BiSolidParty />, path: "/creator" },
-    { icon: <GiFilmSpool />, path: "/shorts" },
+    { icon: <SiHomeadvisor />, path: "/", name: "Home" },
+    { icon: <BiSolidParty />, path: "/creator", name: "Popular" },
+    { icon: <GiFilmSpool />, path: "/shorts", name: "Clips" },
     {
       icon: <BiSolidCloudUpload />,
       path: "/studio/upload",
+      name: "Upload",
       requiresChannel: true,
     },
     {
       icon: <RiAccountPinBoxFill />,
       path: currentChannel ? `/channel/${currentChannel.id}` : "",
       requiresChannel: true,
+      name: "Channel",
     },
-    { icon: <FaGrinHearts />, path: "/like", requiresChannel: true },
-    { icon: <FaPaintBrush />, path: "/studio", requiresChannel: true },
+    {
+      icon: <FaGrinHearts />,
+      path: "/like",
+      requiresChannel: true,
+      name: "Like",
+    },
+    {
+      icon: <FaPaintBrush />,
+      path: "/studio",
+      requiresChannel: true,
+      name: "Studio",
+    },
   ];
 
   const handleItemClick = (path: any, requiresChannel = false) => {
@@ -54,14 +66,15 @@ const Footer = () => {
 
   return (
     <div className="fixed bottom-0 w-full  bg-gray-200 shadow-md dark:bg-neutral-900 z-10 md:hidden">
-      <div className="flex justify-around max-w-[500px] m-auto p-4">
+      <div className="flex justify-around max-w-[500px] m-auto py-2">
         {menuItems.map((item, index) => (
           <div
             key={index}
             onClick={() => handleItemClick(item.path, item.requiresChannel)}
-            className="cursor-pointer text-2xl opacity-80 hover:opacity-100 transform transition hover:scale-110"
+            className="cursor-pointer text-2xl opacity-80 hover:opacity-100 transform transition hover:scale-110 justify-center items-center flex flex-col"
           >
             {item.icon}
+            <div className="text-[12px] text-center">{item.name}</div>
           </div>
         ))}
       </div>
