@@ -82,9 +82,6 @@ const Footer = () => {
               >
                 {item.icon}
               </div>
-              <div className="text-[12px] text-center font-semibold">
-                {item.name}
-              </div>
             </div>
           </>
         ))}
