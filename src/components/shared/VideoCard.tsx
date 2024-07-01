@@ -55,7 +55,6 @@ const VideoCard: React.FC<VideoCardProps> = ({
             height={300} // Set a default height
             placeholder="blur"
             blurDataURL="/blur.svg"
-            sizes="(max-width: 820px) 100vw, 50vw"
           />
         </Suspense>
       </div>
