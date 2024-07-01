@@ -1,5 +1,5 @@
 // pages/index.tsx or Home.tsx
-
+"use client";
 import {
   useEffect,
   useState,
