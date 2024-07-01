@@ -89,7 +89,7 @@ export default async function RootLayout({
                     <NextjsTopLoader
                       color="linear-gradient(to left, rgb(251, 113, 133), rgb(217, 70, 239), rgb(99, 102, 241))"
                       initialPosition={0.08}
-                      crawlSpeed={200}
+                      crawlSpeed={500}
                       height={3}
                       crawl={true}
                       showSpinner={true}
