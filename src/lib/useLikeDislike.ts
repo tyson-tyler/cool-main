@@ -44,7 +44,7 @@ export const useLikeDislike = ({ videoId }: UseLikeDislikeProps) => {
   const toggleLikeDislike = useCallback(
     async (action: "like" | "dislike") => {
       if (!currentUser) {
-        toast.error("Please Sign in to Like/Dislike");
+        toast.error("Please sign in to like/dislike");
         return;
       } else if (!videoId) return;
 

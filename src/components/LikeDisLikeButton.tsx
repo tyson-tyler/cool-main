@@ -1,14 +1,10 @@
+"use client";
 import { useState, useEffect } from "react";
 import { useLikeDislike, LikeDislikeStatus } from "@/lib/useLikeDislike";
 import { compactNumberFormat } from "@/utils/numUtils";
 import { Video } from "@prisma/client";
-import {
-  MdOutlineThumbDown,
-  MdOutlineThumbUp,
-  MdThumbDown,
-  MdThumbUp,
-} from "react-icons/md";
-import { Heart, Loader2 } from "lucide-react";
+import { MdOutlineThumbDown, MdThumbDown } from "react-icons/md";
+import { Loader2 } from "lucide-react";
 import { IoHeart, IoHeartOutline } from "react-icons/io5";
 
 interface LikeDisLikeButtonProps {
@@ -16,7 +12,7 @@ interface LikeDisLikeButtonProps {
 }
 
 const LikeDisLikeButton: React.FC<LikeDisLikeButtonProps> = ({ video }) => {
-  const { likeDislikeStatus, toogleLikeDislike } = useLikeDislike({
+  const { likeDislikeStatus, toggleLikeDislike, isLoading } = useLikeDislike({
     videoId: video.id,
   });
 
@@ -31,7 +27,7 @@ const LikeDisLikeButton: React.FC<LikeDisLikeButtonProps> = ({ video }) => {
     } else {
       setLoadingDislike(true);
     }
-    await toogleLikeDislike(action);
+    await toggleLikeDislike(action);
     if (action === "like") {
       setLoadingLike(false);
     } else {
@@ -70,7 +66,7 @@ const LikeDisLikeButton: React.FC<LikeDisLikeButtonProps> = ({ video }) => {
             likeAnimating ? "animate-like" : ""
           }`}
           onClick={() => handleLikeDislike("like")}
-          disabled={loadingLike}
+          disabled={loadingLike || isLoading}
         >
           {loadingLike ? (
             <span>
@@ -86,7 +82,7 @@ const LikeDisLikeButton: React.FC<LikeDisLikeButtonProps> = ({ video }) => {
         <button
           className="pl-2"
           onClick={() => handleLikeDislike("dislike")}
-          disabled={loadingDislike}
+          disabled={loadingDislike || isLoading}
         >
           {loadingDislike ? (
             <span>
