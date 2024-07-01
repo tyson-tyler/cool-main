@@ -101,6 +101,7 @@ export default async function RootLayout({
                       zIndex={1600}
                       showAtBottom={false}
                     />
+
                     {children}
                     <Footer />
                   </SidebarProvider>

@@ -1,5 +1,5 @@
-// pages/index.tsx or Home.tsx
 "use client";
+
 import {
   useEffect,
   useState,
@@ -8,6 +8,7 @@ import {
   lazy,
   Suspense,
 } from "react";
+import axios from "axios"; // Import Axios for fetching data
 import { Channel, Video } from "@prisma/client";
 import { SkeletonCard } from "@/components/Sketon";
 import { SkeletonDemo } from "@/components/shared/Trop";
@@ -32,13 +33,10 @@ const Home = () => {
   const fetchTrendingVideos = useCallback(
     async (offset: number, limit: number) => {
       try {
-        const response = await fetch(
+        const response = await axios.get(
           `/api/hello?offset=${offset}&limit=${limit}`
-        ); // Fetch data using server-side API route
-        if (!response.ok) {
-          throw new Error("Failed to fetch trending videos");
-        }
-        const videos: VideoWithChannel[] = await response.json();
+        ); // Using Axios for fetching data
+        const videos = response.data;
         setTrendingVideos((prevVideos) => [...prevVideos, ...videos]);
         setHasMore(videos.length === limit);
       } catch (error) {
@@ -52,11 +50,8 @@ const Home = () => {
 
   const fetchSubscriptions = useCallback(async () => {
     try {
-      const response = await fetch("/api/sub"); // Example endpoint for subscriptions
-      if (!response.ok) {
-        throw new Error("Failed to fetch subscriptions");
-      }
-      const subs: Channel[] = await response.json();
+      const response = await axios.get("/api/sub"); // Example endpoint for subscriptions
+      const subs = response.data;
       setSubscriptions(subs);
     } catch (error) {
       console.error("Failed to fetch subscriptions", error);
@@ -90,37 +85,39 @@ const Home = () => {
   );
 
   return (
-    <div className="w-full relative mt-16 flex md:flex-row lg:flex-row">
-      <div className="hidden md:flex">
-        <LeftBar subscribedChannels={subscriptions} />
-      </div>
-      <div className="flex-1 grid-container gap-4 p-4">
-        {trendingVideos.length > 0
-          ? trendingVideos.map((trendingVideo, index) => {
-              if (trendingVideos.length === index + 1) {
-                return (
-                  <div ref={lastVideoElementRef}>
+    <Suspense fallback={"loading"}>
+      <div className="w-full relative mt-16 flex md:flex-row lg:flex-row">
+        <div className="hidden md:flex">
+          <LeftBar subscribedChannels={subscriptions} />
+        </div>
+        <div className="flex-1 grid-container gap-4 p-4">
+          {trendingVideos.length > 0
+            ? trendingVideos.map((trendingVideo, index) => {
+                if (trendingVideos.length === index + 1) {
+                  return (
+                    <div ref={lastVideoElementRef}>
+                      <VideoCard
+                        video={trendingVideo}
+                        channel={trendingVideo.channel}
+                        channelAvatar={trendingVideo.channel.imageSrc}
+                      />
+                    </div>
+                  );
+                } else {
+                  return (
                     <VideoCard
                       video={trendingVideo}
                       channel={trendingVideo.channel}
                       channelAvatar={trendingVideo.channel.imageSrc}
                     />
-                  </div>
-                );
-              } else {
-                return (
-                  <VideoCard
-                    video={trendingVideo}
-                    channel={trendingVideo.channel}
-                    channelAvatar={trendingVideo.channel.imageSrc}
-                  />
-                );
-              }
-            })
-          : !loading && "No Videos"}
-        {loading && <SkeletonCard />}
+                  );
+                }
+              })
+            : !loading && "No Videos"}
+          {loading && <SkeletonCard />}
+        </div>
       </div>
-    </div>
+    </Suspense>
   );
 };
 
