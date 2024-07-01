@@ -2,6 +2,8 @@ import getChannelById from "@/actions/getChannelById";
 import getCommentsByVideoId from "@/actions/getCommentsByVideoId";
 import { getRecommendedVideos } from "@/actions/getRecommendedVideos";
 import increaseVideoViewCount from "@/actions/increaseVideoViewCount";
+import useSWR from "swr";
+import axios from "axios";
 
 import { Metadata } from "next";
 import { Suspense } from "react";
@@ -10,6 +12,8 @@ import { BiComment } from "react-icons/bi";
 interface VideoPageProps {
   videoId?: string;
 }
+
+const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 
 export async function generateMetadata({
   params,
@@ -31,6 +35,24 @@ export default async function VideoPage({
 }) {
   const { videoId } = params;
 
+  // Use SWR to fetch data
+  const { data: video, error: videoError } = useSWR(
+    `/api/increaseVideoViewCount?videoId=${videoId}`,
+    fetcher
+  );
+  const { data: channel, error: channelError } = useSWR(
+    video ? `/api/getChannelById?channelId=${video.channelId}` : null,
+    fetcher
+  );
+  const { data: comments, error: commentsError } = useSWR(
+    video ? `/api/getCommentsByVideoId?videoId=${videoId}` : null,
+    fetcher
+  );
+  const { data: recommendedVideos, error: recommendedVideosError } = useSWR(
+    video ? `/api/getRecommendedVideos?videoId=${videoId}` : null,
+    fetcher
+  );
+
   // Dynamically import components
   const SheetDemo = (await import("@/components/he")).SheetDemo;
   const VideoCard = (await import("@/components/shared/VideoTrop")).default;
@@ -48,13 +70,11 @@ export default async function VideoPage({
   ).default;
   const VideoPlayer = (await import("@/components/video/VideoPlayer")).default;
 
-  // Fetch data
-  const video = await increaseVideoViewCount({ videoId });
-  const channel = await getChannelById({ channelId: video?.channelId });
-  const comments = await getCommentsByVideoId({ videoId });
-  const recommendedVideos = await getRecommendedVideos({ video });
+  if (videoError || channelError || commentsError || recommendedVideosError)
+    return <div>Error loading data</div>;
+  if (!video || !channel || !comments) return <div>Loading...</div>;
 
-  return video && channel && comments ? (
+  return (
     <>
       {/* Your JSX remains mostly the same */}
       <Suspense fallback={"loading"}>
@@ -100,7 +120,7 @@ export default async function VideoPage({
             <div className="w-full grid-container gap-4 px-2 lg:px-7">
               <Suspense fallback={<SkeletonCard />}>
                 {recommendedVideos
-                  ? recommendedVideos.map((recommendedVideo) => {
+                  ? recommendedVideos.map((recommendedVideo: any) => {
                       return (
                         <VideoCard
                           key={recommendedVideo.id}
@@ -117,7 +137,5 @@ export default async function VideoPage({
         </div>
       </Suspense>
     </>
-  ) : (
-    <h1>Video not found</h1>
   );
 }
