@@ -1,6 +1,5 @@
 // Import necessary modules
 import React from "react";
-
 import { Navbar } from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ThemeProvider } from "@/components/Toogle";
@@ -37,6 +36,7 @@ const keywords = [
   "ai generate my video",
   // Add more keywords as needed
 ];
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://myaimix.com/"),
   title: {
@@ -44,12 +44,12 @@ export const metadata: Metadata = {
     template: "%s | MyAiMix",
   },
   description:
-    "Best AI-generated video sharing platform for free, Discover the ultimate AI-powered video sharing platform for free!, Join the revolution with Myaimix - the best AI-generated video sharing community, xperience the future of video sharing with Myaimix - where AI meets creativity., Unlock endless possibilities with Myaimix - the top destination for AI-driven video content., Elevate your video sharing experience with Myaimix - the preferred choice for AI enthusiasts, Transform your content with Myaimix - the leading platform for AI-enhanced videos, Explore, engage, and collaborate on Myaimix - the go-to destination for cutting-edge video sharing., join the AI revolution with Myaimix - where innovation meets community, Discover the power of AI-generated videos on Myaimix - your gateway to creativity., Unleash your creativity with Myaimix - the premier AI-powered video sharing network. ",
+    "Best AI-generated video sharing platform for free, Discover the ultimate AI-powered video sharing platform for free!, Join the revolution with Myaimix - the best AI-generated video sharing community, Experience the future of video sharing with Myaimix - where AI meets creativity., Unlock endless possibilities with Myaimix - the top destination for AI-driven video content., Elevate your video sharing experience with Myaimix - the preferred choice for AI enthusiasts, Transform your content with Myaimix - the leading platform for AI-enhanced videos, Explore, engage, and collaborate on Myaimix - the go-to destination for cutting-edge video sharing., join the AI revolution with Myaimix - where innovation meets community, Discover the power of AI-generated videos on Myaimix - your gateway to creativity., Unleash your creativity with Myaimix - the premier AI-powered video sharing network.",
   keywords: keywords,
   openGraph: {
     title: "Myaimix Best Ai Video sharing platform",
     description:
-      "Best AI-generated video sharing platform for free, Discover the ultimate AI-powered video sharing platform for free!, Join the revolution with Myaimix - the best AI-generated video sharing community, xperience the future of video sharing with Myaimix - where AI meets creativity., Unlock endless possibilities with Myaimix - the top destination for AI-driven video content., Elevate your video sharing experience with Myaimix - the preferred choice for AI enthusiasts, Transform your content with Myaimix - the leading platform for AI-enhanced videos, Explore, engage, and collaborate on Myaimix - the go-to destination for cutting-edge video sharing., join the AI revolution with Myaimix - where innovation meets community, Discover the power of AI-generated videos on Myaimix - your gateway to creativity., Unleash your creativity with Myaimix - the premier AI-powered video sharing network.",
+      "Best AI-generated video sharing platform for free, Discover the ultimate AI-powered video sharing platform for free!, Join the revolution with Myaimix - the best AI-generated video sharing community, Experience the future of video sharing with Myaimix - where AI meets creativity., Unlock endless possibilities with Myaimix - the top destination for AI-driven video content., Elevate your video sharing experience with Myaimix - the preferred choice for AI enthusiasts, Transform your content with Myaimix - the leading platform for AI-enhanced videos, Explore, engage, and collaborate on Myaimix - the go-to destination for cutting-edge video sharing., join the AI revolution with Myaimix - where innovation meets community, Discover the power of AI-generated videos on Myaimix - your gateway to creativity., Unleash your creativity with Myaimix - the premier AI-powered video sharing network.",
     type: "website",
     locale: "en_US",
     url: "https://myaimix.com/",
@@ -101,7 +101,6 @@ export default async function RootLayout({
                       zIndex={1600}
                       showAtBottom={false}
                     />
-
                     {children}
                     <Footer />
                   </SidebarProvider>
