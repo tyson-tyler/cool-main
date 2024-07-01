@@ -1,4 +1,5 @@
 "use client";
+
 import {
   useEffect,
   useState,
@@ -7,13 +8,12 @@ import {
   lazy,
   Suspense,
 } from "react";
-import useSWR from "swr";
+import useSWR from "swr"; // Import SWR for data fetching
+import axios from "axios";
 import { Channel, Video } from "@prisma/client";
-import axios from "axios"; // Import Axios for fetching data
 import { SkeletonCard } from "@/components/Sketon";
 import { SkeletonDemo } from "@/components/shared/Trop";
 
-// Lazy load components
 const LeftBar = lazy(() => import("@/components/Leftbar"));
 const VideoCard = lazy(() => import("@/components/shared/VideoCard"));
 
@@ -21,39 +21,61 @@ interface VideoWithChannel extends Video {
   channel: Channel;
 }
 
+const fetcher = (url: string) => axios.get(url).then((res) => res.data);
+
 const Home = () => {
-  const {
-    data: trendingVideos,
-    error,
-    mutate,
-  } = useSWR<VideoWithChannel[]>(
-    `/api/hello?offset=0&limit=10`, // Initial fetch URL
-    async (url: any) => {
-      const response = await axios.get(url);
-      return response.data;
-    }
-  );
-
-  const { data: subscriptions } = useSWR<Channel[]>(
-    "/api/sub",
-    async (url: any) => {
-      const response = await axios.get(url);
-      return response.data;
-    }
-  );
-
+  const [trendingVideos, setTrendingVideos] = useState<VideoWithChannel[]>([]);
+  const [subscriptions, setSubscriptions] = useState<Channel[]>([]);
   const [offset, setOffset] = useState(0);
   const limit = 10;
   const [loading, setLoading] = useState(true);
   const [hasMore, setHasMore] = useState(true);
   const observer = useRef<IntersectionObserver>();
 
+  const { data: initialVideos, error: videosError } = useSWR(
+    `/api/hello?offset=0&limit=${limit}`,
+    fetcher
+  );
+  const { data: initialSubscriptions, error: subscriptionsError } = useSWR(
+    "/api/sub",
+    fetcher
+  );
+
   useEffect(() => {
-    if (trendingVideos) {
-      setHasMore(trendingVideos.length === limit);
+    if (initialVideos) {
+      setTrendingVideos(initialVideos);
+      setHasMore(initialVideos.length === limit);
       setLoading(false);
     }
-  }, [trendingVideos]);
+  }, [initialVideos]);
+
+  useEffect(() => {
+    if (initialSubscriptions) {
+      setSubscriptions(initialSubscriptions);
+    }
+  }, [initialSubscriptions]);
+
+  const fetchMoreVideos = useCallback(async () => {
+    try {
+      const response = await axios.get(
+        `/api/hello?offset=${offset}&limit=${limit}`
+      );
+      const videos = response.data;
+      setTrendingVideos((prevVideos) => [...prevVideos, ...videos]);
+      setHasMore(videos.length === limit);
+    } catch (error) {
+      console.error("Failed to fetch more videos", error);
+    } finally {
+      setLoading(false);
+    }
+  }, [offset]);
+
+  useEffect(() => {
+    if (offset > 0) {
+      setLoading(true);
+      fetchMoreVideos();
+    }
+  }, [offset, fetchMoreVideos]);
 
   const lastVideoElementRef = useCallback(
     (node: any) => {
@@ -69,41 +91,44 @@ const Home = () => {
     [loading, hasMore]
   );
 
-  useEffect(() => {
-    setLoading(true);
-    mutate();
-  }, [offset, mutate]);
+  if (videosError) return <div>Failed to load videos</div>;
+  if (subscriptionsError) return <div>Failed to load subscriptions</div>;
 
   return (
     <div className="w-full relative mt-16 flex md:flex-row lg:flex-row">
       <div className="hidden md:flex">
-        <LeftBar subscribedChannels={subscriptions || []} />
+        <Suspense fallback={<SkeletonDemo />}>
+          <LeftBar subscribedChannels={subscriptions} />
+        </Suspense>
       </div>
       <div className="flex-1 grid-container gap-4 p-4">
-        {trendingVideos && trendingVideos.length > 0
+        {trendingVideos.length > 0
           ? trendingVideos.map((trendingVideo, index) => {
               if (trendingVideos.length === index + 1) {
                 return (
-                  <div key={trendingVideo.id} ref={lastVideoElementRef}>
+                  <div ref={lastVideoElementRef} key={trendingVideo.id}>
+                    <Suspense fallback={<SkeletonCard />}>
+                      <VideoCard
+                        video={trendingVideo}
+                        channel={trendingVideo.channel}
+                        channelAvatar={trendingVideo.channel.imageSrc}
+                      />
+                    </Suspense>
+                  </div>
+                );
+              } else {
+                return (
+                  <Suspense fallback={<SkeletonCard />} key={trendingVideo.id}>
                     <VideoCard
                       video={trendingVideo}
                       channel={trendingVideo.channel}
                       channelAvatar={trendingVideo.channel.imageSrc}
                     />
-                  </div>
-                );
-              } else {
-                return (
-                  <VideoCard
-                    key={trendingVideo.id}
-                    video={trendingVideo}
-                    channel={trendingVideo.channel}
-                    channelAvatar={trendingVideo.channel.imageSrc}
-                  />
+                  </Suspense>
                 );
               }
             })
-          : !loading && <div>No Videos</div>}
+          : !loading && "No Videos"}
         {loading && <SkeletonCard />}
       </div>
     </div>
