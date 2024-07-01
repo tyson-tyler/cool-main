@@ -1,4 +1,4 @@
-"use client";
+// pages/index.tsx or Home.tsx
 
 import {
   useEffect,
@@ -8,7 +8,6 @@ import {
   lazy,
   Suspense,
 } from "react";
-import axios from "axios"; // Import Axios for fetching data
 import { Channel, Video } from "@prisma/client";
 import { SkeletonCard } from "@/components/Sketon";
 import { SkeletonDemo } from "@/components/shared/Trop";
@@ -33,10 +32,13 @@ const Home = () => {
   const fetchTrendingVideos = useCallback(
     async (offset: number, limit: number) => {
       try {
-        const response = await axios.get(
+        const response = await fetch(
           `/api/hello?offset=${offset}&limit=${limit}`
-        ); // Using Axios for fetching data
-        const videos = response.data;
+        ); // Fetch data using server-side API route
+        if (!response.ok) {
+          throw new Error("Failed to fetch trending videos");
+        }
+        const videos: VideoWithChannel[] = await response.json();
         setTrendingVideos((prevVideos) => [...prevVideos, ...videos]);
         setHasMore(videos.length === limit);
       } catch (error) {
@@ -50,8 +52,11 @@ const Home = () => {
 
   const fetchSubscriptions = useCallback(async () => {
     try {
-      const response = await axios.get("/api/sub"); // Example endpoint for subscriptions
-      const subs = response.data;
+      const response = await fetch("/api/sub"); // Example endpoint for subscriptions
+      if (!response.ok) {
+        throw new Error("Failed to fetch subscriptions");
+      }
+      const subs: Channel[] = await response.json();
       setSubscriptions(subs);
     } catch (error) {
       console.error("Failed to fetch subscriptions", error);

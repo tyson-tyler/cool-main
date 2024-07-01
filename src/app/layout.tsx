@@ -96,6 +96,7 @@ export default async function RootLayout({
                       easing="ease"
                       speed={600}
                     />
+
                     {children}
                     <Footer />
                   </SidebarProvider>
