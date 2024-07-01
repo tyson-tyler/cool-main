@@ -1,3 +1,5 @@
+// pages/api/hello.ts
+
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/vendor/db";
 import { Channel, Video } from "@prisma/client";

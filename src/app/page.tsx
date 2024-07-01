@@ -1,5 +1,4 @@
 "use client";
-
 import {
   useEffect,
   useState,
@@ -8,8 +7,9 @@ import {
   lazy,
   Suspense,
 } from "react";
-import axios from "axios"; // Import Axios for fetching data
+import useSWR from "swr"; // Import useSWR from SWR library
 import { Channel, Video } from "@prisma/client";
+import axios from "axios";
 import { SkeletonCard } from "@/components/Sketon";
 import { SkeletonDemo } from "@/components/shared/Trop";
 
@@ -21,68 +21,85 @@ interface VideoWithChannel extends Video {
   channel: Channel;
 }
 
+const fetcher = async (url: string) => {
+  const response = await axios.get(url);
+  return response.data;
+};
+
 const Home = () => {
-  const [trendingVideos, setTrendingVideos] = useState<VideoWithChannel[]>([]);
   const [subscriptions, setSubscriptions] = useState<Channel[]>([]);
   const [offset, setOffset] = useState(0);
   const limit = 10;
-  const [loading, setLoading] = useState(true);
-  const [hasMore, setHasMore] = useState(true);
   const observer = useRef<IntersectionObserver>();
 
-  const fetchTrendingVideos = useCallback(
-    async (offset: number, limit: number) => {
-      try {
-        const response = await axios.get(
-          `/api/hello?offset=${offset}&limit=${limit}`
-        ); // Using Axios for fetching data
-        const videos = response.data;
-        setTrendingVideos((prevVideos) => [...prevVideos, ...videos]);
-        setHasMore(videos.length === limit);
-      } catch (error) {
-        console.error("Failed to fetch trending videos", error);
-      } finally {
-        setLoading(false);
-      }
-    },
-    []
+  // Use SWR for fetching trending videos
+  const { data: trendingVideos, error: trendingError } = useSWR<
+    VideoWithChannel[]
+  >(`/api/hello?offset=${offset}&limit=${limit}`, fetcher);
+
+  // Use SWR for fetching subscriptions
+  const { data: subs, error: subsError } = useSWR<Channel[]>(
+    "/api/sub",
+    fetcher
   );
 
-  const fetchSubscriptions = useCallback(async () => {
-    try {
-      const response = await axios.get("/api/sub"); // Example endpoint for subscriptions
-      const subs = response.data;
+  useEffect(() => {
+    if (subsError) {
+      console.error("Failed to fetch subscriptions", subsError);
+    } else if (subs) {
       setSubscriptions(subs);
-    } catch (error) {
-      console.error("Failed to fetch subscriptions", error);
     }
-  }, []);
-
-  useEffect(() => {
-    setLoading(true);
-    fetchTrendingVideos(0, limit);
-    fetchSubscriptions();
-  }, [fetchTrendingVideos, fetchSubscriptions]);
-
-  useEffect(() => {
-    if (offset === 0) return;
-    setLoading(true);
-    fetchTrendingVideos(offset, limit);
-  }, [offset, fetchTrendingVideos]);
+  }, [subs, subsError]);
 
   const lastVideoElementRef = useCallback(
     (node: any) => {
-      if (loading) return;
+      if (!trendingVideos || trendingVideos.length === 0) return;
       if (observer.current) observer.current.disconnect();
       observer.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && hasMore) {
+        if (
+          entries[0].isIntersecting &&
+          trendingVideos.length >= offset + limit
+        ) {
           setOffset((prevOffset) => prevOffset + limit);
         }
       });
       if (node) observer.current.observe(node);
     },
-    [loading, hasMore]
+    [trendingVideos, offset]
   );
+
+  // Function to load more videos when reaching the bottom
+  const loadMoreVideos = () => {
+    if (trendingVideos && trendingVideos.length >= offset + limit) {
+      setOffset((prevOffset) => prevOffset + limit);
+    }
+  };
+
+  // Attach event listener for scrolling to load more videos
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const handleScroll = () => {
+    const windowHeight =
+      "innerHeight" in window
+        ? window.innerHeight
+        : document.documentElement.offsetHeight;
+    const body = document.body;
+    const html = document.documentElement;
+    const docHeight = Math.max(
+      body.scrollHeight,
+      body.offsetHeight,
+      html.clientHeight,
+      html.scrollHeight,
+      html.offsetHeight
+    );
+    const windowBottom = windowHeight + window.pageYOffset;
+    if (windowBottom >= docHeight) {
+      loadMoreVideos();
+    }
+  };
 
   return (
     <Suspense fallback={"loading"}>
@@ -91,30 +108,29 @@ const Home = () => {
           <LeftBar subscribedChannels={subscriptions} />
         </div>
         <div className="flex-1 grid-container gap-4 p-4">
-          {trendingVideos.length > 0
-            ? trendingVideos.map((trendingVideo, index) => {
-                if (trendingVideos.length === index + 1) {
-                  return (
-                    <div ref={lastVideoElementRef}>
-                      <VideoCard
-                        video={trendingVideo}
-                        channel={trendingVideo.channel}
-                        channelAvatar={trendingVideo.channel.imageSrc}
-                      />
-                    </div>
-                  );
-                } else {
-                  return (
-                    <VideoCard
-                      video={trendingVideo}
-                      channel={trendingVideo.channel}
-                      channelAvatar={trendingVideo.channel.imageSrc}
-                    />
-                  );
-                }
-              })
-            : !loading && "No Videos"}
-          {loading && <SkeletonCard />}
+          {trendingVideos ? (
+            <>
+              {trendingVideos.map((trendingVideo, index) => (
+                <div
+                  key={trendingVideo.id}
+                  ref={
+                    index === trendingVideos.length - 1
+                      ? lastVideoElementRef
+                      : undefined
+                  }
+                >
+                  <VideoCard
+                    video={trendingVideo}
+                    channel={trendingVideo.channel}
+                    channelAvatar={trendingVideo.channel.imageSrc}
+                  />
+                </div>
+              ))}
+              {trendingVideos.length === 0 && !trendingError && "No Videos"}
+            </>
+          ) : (
+            <SkeletonCard />
+          )}
         </div>
       </div>
     </Suspense>
