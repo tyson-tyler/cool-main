@@ -1,9 +1,10 @@
 import prisma from "@/vendor/db";
 import { Channel, Video } from "@prisma/client";
 
-export default async function getTrendingVideos(): Promise<
-  (Video & { channel: Channel })[]
-> {
+export default async function getTrendingVideos(
+  skip: number = 0,
+  take: number = 10
+): Promise<(Video & { channel: Channel })[]> {
   try {
     const startDate = new Date();
     startDate.setMonth(startDate.getMonth() - 1);
@@ -22,6 +23,8 @@ export default async function getTrendingVideos(): Promise<
           viewCount: "desc",
         },
       ],
+      skip,
+      take,
     });
 
     // Add channel information to each video and return as a tuple

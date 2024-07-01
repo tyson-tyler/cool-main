@@ -1,5 +1,3 @@
-// pages/api/hello.ts
-
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/vendor/db";
 import { Channel, Video } from "@prisma/client";
@@ -33,7 +31,7 @@ async function fetchVideos(
   }
 }
 
-// API handler
+// API handler for infinite scrolling
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const offset = parseInt(searchParams.get("offset") || "0", 10);

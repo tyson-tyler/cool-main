@@ -3,6 +3,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useCallback, useContext, useMemo } from "react";
 import toast from "react-hot-toast";
+import useSWR, { mutate } from "swr";
 
 interface UseLikeDislikeProps {
   videoId: string;
@@ -14,17 +15,22 @@ export enum LikeDislikeStatus {
   None = 3,
 }
 
+const fetcher = (url: string) => axios.get(url).then((res) => res.data);
+
 export const useLikeDislike = ({ videoId }: UseLikeDislikeProps) => {
   const currentUser = useContext(CurrentUserContext);
 
   const router = useRouter();
 
+  const { data, error } = useSWR(
+    currentUser ? `/api/videos/${videoId}/status` : null,
+    fetcher
+  );
+
   const likeDislikeStatus = useMemo(() => {
-    if (!currentUser || !videoId) return false;
+    if (!data) return LikeDislikeStatus.None;
 
-    const likedVideoIds = currentUser.likedVideoIds;
-
-    const dislikedVideoIds = currentUser.dislikedVideoIds;
+    const { likedVideoIds, dislikedVideoIds } = data;
 
     if (likedVideoIds.includes(videoId)) {
       return LikeDislikeStatus.Liked;
@@ -33,12 +39,12 @@ export const useLikeDislike = ({ videoId }: UseLikeDislikeProps) => {
     } else {
       return LikeDislikeStatus.None;
     }
-  }, [currentUser, videoId]);
+  }, [data, videoId]);
 
-  const toogleLikeDislike = useCallback(
+  const toggleLikeDislike = useCallback(
     async (action: "like" | "dislike") => {
       if (!currentUser) {
-        toast.error("Please Sign to Like/DisLike");
+        toast.error("Please Sign in to Like/Dislike");
         return;
       } else if (!videoId) return;
 
@@ -47,13 +53,10 @@ export const useLikeDislike = ({ videoId }: UseLikeDislikeProps) => {
           switch (likeDislikeStatus) {
             case LikeDislikeStatus.Liked:
               await axios.delete(`/api/videos/${videoId}/like`);
-
               break;
             case LikeDislikeStatus.Disliked:
-              await axios
-                .delete(`/api/videos/${videoId}/dislike`)
-                .then(() => axios.post(`/api/videos/${videoId}/like`));
-
+              await axios.delete(`/api/videos/${videoId}/dislike`);
+              await axios.post(`/api/videos/${videoId}/like`);
               break;
             default:
               await axios.post(`/api/videos/${videoId}/like`);
@@ -62,10 +65,8 @@ export const useLikeDislike = ({ videoId }: UseLikeDislikeProps) => {
         } else if (action === "dislike") {
           switch (likeDislikeStatus) {
             case LikeDislikeStatus.Liked:
-              await axios
-                .delete(`/api/videos/${videoId}/like`)
-                .then(() => axios.post(`/api/videos/${videoId}/dislike`));
-
+              await axios.delete(`/api/videos/${videoId}/like`);
+              await axios.post(`/api/videos/${videoId}/dislike`);
               break;
             case LikeDislikeStatus.Disliked:
               await axios.delete(`/api/videos/${videoId}/dislike`);
@@ -75,10 +76,12 @@ export const useLikeDislike = ({ videoId }: UseLikeDislikeProps) => {
               break;
           }
         }
+
+        mutate(`/api/videos/${videoId}/status`); // Revalidate the SWR data
         router.refresh();
-        toast.success("Thanks for Like!");
+        toast.success("Thanks for your feedback!");
       } catch (error) {
-        toast.error("There is an error");
+        toast.error("There was an error");
       }
     },
     [currentUser, videoId, likeDislikeStatus, router]
@@ -86,6 +89,8 @@ export const useLikeDislike = ({ videoId }: UseLikeDislikeProps) => {
 
   return {
     likeDislikeStatus,
-    toogleLikeDislike,
+    toggleLikeDislike,
+    isLoading: !error && !data,
+    isError: error,
   };
 };
